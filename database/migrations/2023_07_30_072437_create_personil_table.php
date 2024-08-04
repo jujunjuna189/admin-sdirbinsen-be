@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('suku_bangsa')->nullable();
             $table->enum('golongan_darah', ['A', 'B', 'AB', 'O'])->nullable();
 
+            $table->string('gol_jabatan', 255)->nullable();
             $table->string('jabatan', 255)->nullable();
             $table->string('pangkat', 255)->nullable();
             $table->string('korps', 255)->nullable();
@@ -38,7 +39,6 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

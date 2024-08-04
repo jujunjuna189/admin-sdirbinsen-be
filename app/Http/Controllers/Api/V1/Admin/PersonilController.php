@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\PersonilImport;
 use App\Models\Agama;
 use App\Models\AnakRiwayatKeluarga;
+use App\Models\GolJabatan;
 use App\Models\Jabatan;
 use App\Models\Korps;
 use App\Models\Pangkat;
@@ -112,6 +113,7 @@ class PersonilController extends Controller
                 'suku_bangsa' => 'nullable',
                 'golongan_darah' => 'nullable',
 
+                'gol_jabatan' => 'nullable',
                 'jabatan' => 'nullable',
                 'pangkat' => 'nullable',
                 'korps' => 'nullable',
@@ -167,6 +169,7 @@ class PersonilController extends Controller
             $personil->suku_bangsa = $request->input('suku_bangsa');
             $personil->golongan_darah = $request->input('golongan_darah');
 
+            $personil->gol_jabatan = $request->input('gol_jabatan');
             $personil->jabatan = $request->input('jabatan');
             $personil->pangkat = $request->input('pangkat');
             $personil->korps = $request->input('korps');
@@ -273,6 +276,7 @@ class PersonilController extends Controller
                 'suku_bangsa' => 'nullable',
                 'golongan_darah' => 'nullable',
 
+                'gol_jabatan' => 'nullable',
                 'jabatan' => 'nullable',
                 'pangkat' => 'nullable',
                 'korps' => 'nullable',
@@ -321,6 +325,7 @@ class PersonilController extends Controller
             $personil->suku_bangsa = $request->input('suku_bangsa');
             $personil->golongan_darah = $request->input('golongan_darah');
 
+            $personil->gol_jabatan = $request->input('gol_jabatan');
             $personil->jabatan = $request->input('jabatan');
             $personil->pangkat = $request->input('pangkat');
             $personil->korps = $request->input('korps');
@@ -433,6 +438,19 @@ class PersonilController extends Controller
     //         return responseJson($errorMessage, 500, 'Error');
     //     }
     // }
+
+    public function getGolJabatan()
+    {
+        // Mengambil daftar dari data personil
+        $gol_jabatan = GolJabatan::select('id', 'nama')->get();
+
+        $data = [
+            'gol_jabatan' => $gol_jabatan
+        ];
+
+        // Mengembalikan daftar posisi dalam response JSON
+        return responseJson('Show list gol jabatan', 200, 'Success', $data);
+    }
 
     public function getJabatan()
     {

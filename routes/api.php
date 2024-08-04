@@ -81,6 +81,7 @@
             Route::delete('personil/{id}', [PersonilController::class, 'destroy']);
 
             Route::get('list/personil/satuan', [PersonilController::class, 'getSatuan']);
+            Route::get('list/personil/gol-jabatan', [PersonilController::class, 'getGolJabatan']);
             Route::get('list/personil/jabatan', [PersonilController::class, 'getJabatan']);
             Route::get('list/personil/pangkat', [PersonilController::class, 'getPangkat']);
             Route::get('list/personil/korps', [PersonilController::class, 'getKorps']);
