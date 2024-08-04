@@ -4,6 +4,7 @@
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatController;
     use App\Http\Controllers\Api\V1\Admin\CatPersonilController;
     use App\Http\Controllers\Api\V1\Admin\ChatController;
+    use App\Http\Controllers\Api\V1\Admin\HelpTicketController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterBinsiapsatCategoryController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterMaterialCategoryController;
     use App\Http\Controllers\Api\V1\Admin\MaterialController;
@@ -250,6 +251,10 @@
             Route::get('user-personil/{id}', [UserPersonilAdminController::class, 'show']);
             Route::post('user-personil/{id}', [UserPersonilAdminController::class, 'update']);
             Route::post('user-personil', [UserPersonilAdminController::class, 'store']);
+
+            // Help Center
+            Route::get('help/ticket', [HelpTicketController::class, 'index']);
+            Route::post('help/ticket', [HelpTicketController::class, 'store']);
         });
 
         Route::group([

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('to_id')->comment('Relation to table user, to sender chat');
             $table->text('message')->nullable();
             $table->text('attachment')->nullable();
-            $table->string('attachment_name')->nullable();
+            $table->text('attachment_name')->nullable();
             $table->timestamps();
         });
 
