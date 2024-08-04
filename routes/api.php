@@ -14,6 +14,7 @@
     use App\Http\Controllers\Api\V1\Admin\PangkatController;
     use App\Http\Controllers\Api\V1\Admin\PermissionAdminController;
     use App\Http\Controllers\Api\V1\Admin\PersonilController;
+    use App\Http\Controllers\Api\V1\Admin\PetaJabatanController;
     use App\Http\Controllers\Api\V1\Admin\PrestasiController;
     use App\Http\Controllers\Api\V1\Admin\RiwayatJabatanController;
     use App\Http\Controllers\Api\V1\Admin\RiwayatKeluargaAnakController;
@@ -165,6 +166,12 @@
             Route::post('personil/{id_personil}/prestasi', [PrestasiController::class, 'store']);
             Route::post('personil/{id_personil}/prestasi/{id_prestasi}', [PrestasiController::class, 'update']);
             Route::delete('personil/{id_personil}/prestasi/{id_prestasi}', [PrestasiController::class, 'destroy']);
+
+            // Peta Jabatan
+            Route::get('peta-jabatan', [PetaJabatanController::class, 'index']);
+            Route::post('peta-jabatan', [PetaJabatanController::class, 'store']);
+            Route::post('peta-jabatan/{id_personil}', [PetaJabatanController::class, 'update']);
+            Route::delete('peta-jabatan/{id_personil}', [PetaJabatanController::class, 'destroy']);
 
             Route::get('user', [UserController::class, 'index']);
             Route::get('user/{id}', [UserController::class, 'show']);
