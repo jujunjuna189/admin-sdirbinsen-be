@@ -58,14 +58,14 @@ class SatuanController extends Controller
     public function show($id)
     {
         try {
-            $satuan = Satuan::where('id',$id)->first();
+            $satuan = Satuan::where('id', $id)->first();
             if (!$satuan) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'satuan' => $satuan
             ];
-            return responseJson('Show Satuan', 200, 'Success',$data);
+            return responseJson('Show Satuan', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -123,7 +123,7 @@ class SatuanController extends Controller
 
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');
-                $newFilename = "logo_" . date('Ymdhis') . rand(10000000, 99999999) ."." . $file->getClientOriginalExtension();
+                $newFilename = "logo_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'satuan/logo';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $satuan->logo = Storage::disk('public')->url($path . '/' . $newFilename);;
@@ -131,7 +131,7 @@ class SatuanController extends Controller
 
             if ($request->hasFile('mars_lagu')) {
                 $file = $request->file('mars_lagu');
-                $newFilename = "mars_lagu_" . date('Ymdhis') . rand(10000000, 99999999) ."." . $file->getClientOriginalExtension();
+                $newFilename = "mars_lagu_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'satuan/mars_lagu';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $satuan->mars_lagu = Storage::disk('public')->url($path . '/' . $newFilename);;
@@ -139,7 +139,7 @@ class SatuanController extends Controller
 
             if ($request->hasFile('hymne_lagu')) {
                 $file = $request->file('hymne_lagu');
-                $newFilename = "hymne_lagu_" . date('Ymdhis') . rand(10000000, 99999999) ."." . $file->getClientOriginalExtension();
+                $newFilename = "hymne_lagu_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'satuan/hymne_lagu';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $satuan->hymne_lagu = Storage::disk('public')->url($path . '/' . $newFilename);;
@@ -195,7 +195,6 @@ class SatuanController extends Controller
             }
 
             $satuan->nama = $request->input('nama');
-            $satuan->sejarah = $request->input('sejarah');
             $satuan->sejarah_url = $request->input('sejarah_url');
             $satuan->hymne = $request->input('hymne');
             $satuan->hymne_url = $request->input('hymne_url');
@@ -210,26 +209,46 @@ class SatuanController extends Controller
 
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');
-                $newFilename = "logo_" . date('Ymdhis') . rand(10000000, 99999999) ."." . $file->getClientOriginalExtension();
+                $newFilename = "logo_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'satuan/logo';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $satuan->logo = Storage::disk('public')->url($path . '/' . $newFilename);;
             }
 
+            if ($request->input('sejarah')) {
+                $sejarah = '';
+                foreach ($request->sejarah as $index => $val) {
+                    if (isset($request->sejarah[$index]['gambar'])) {
+                        $file = $request->sejarah[$index]['gambar'];
+                        $newFilename = "sejarah_image_$index" . '_' . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                        $path = "satuan/sejarah/$satuan->id";
+                        Storage::disk('public')->deleteDirectory($path);
+                        Storage::disk('public')->putFileAs($path, $file, $newFilename);
+
+                        // susun text
+                        $src = Storage::disk('public')->url($path . '/' . $newFilename);
+                        $sejarah .= str_replace("--gambar_$index--", "<img src='$src' alt='sejarah_image' style='" . $val['style'] . "' />", $val['text']);
+                    } else {
+                        $sejarah .= str_replace("--gambar_$index--", "", $val['text']);
+                    }
+                }
+                $satuan->sejarah = $sejarah;
+            }
+
             if ($request->hasFile('mars_lagu')) {
                 $file = $request->file('mars_lagu');
-                $newFilename = "mars_lagu_" . date('Ymdhis') . rand(10000000, 99999999) ."." . $file->getClientOriginalExtension();
+                $newFilename = "mars_lagu_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'satuan/mars_lagu';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
-                $satuan->mars_lagu = Storage::disk('public')->url($path . '/' . $newFilename);;
+                $satuan->mars_lagu = Storage::disk('public')->url($path . '/' . $newFilename);
             }
 
             if ($request->hasFile('hymne_lagu')) {
                 $file = $request->file('hymne_lagu');
-                $newFilename = "hymne_lagu_" . date('Ymdhis') . rand(10000000, 99999999) ."." . $file->getClientOriginalExtension();
+                $newFilename = "hymne_lagu_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'satuan/hymne_lagu';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
-                $satuan->hymne_lagu = Storage::disk('public')->url($path . '/' . $newFilename);;
+                $satuan->hymne_lagu = Storage::disk('public')->url($path . '/' . $newFilename);
             }
 
             $satuan->save();
@@ -253,7 +272,7 @@ class SatuanController extends Controller
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
-                'satuan'=>$satuan
+                'satuan' => $satuan
             ];
             $satuan->delete();
             return responseJson('Delete satuan', 200, 'Success', $data);

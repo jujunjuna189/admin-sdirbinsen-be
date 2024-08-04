@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->text('logo')->nullable();
-            $table->string('sejarah')->nullable();
+            $table->text('sejarah')->nullable();
             $table->string('sejarah_url')->nullable();
             $table->string('hymne')->nullable();
             $table->string('hymne_url')->nullable();

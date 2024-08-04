@@ -57,7 +57,7 @@ class PrestasiController extends Controller
             $data = [
                 'prestasi' => $prestasi,
             ];
-            return responseJson('Show prestasi', 200, 'Success',$data);
+            return responseJson('Show prestasi', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -74,14 +74,14 @@ class PrestasiController extends Controller
                 'tempat' => 'required',
                 'deskripsi' => 'nullable',
                 'kep_piagam' => 'required',
-            ],[
-                'personil_id.required'=>"Personil id wajib diisi",
-                'personil_id.numeric'=>"Format personil id salah",
-                'nama_kegiatan.required'=>"Nama kegiatan wajib diisi",
-                'tahun.required'=>"Tahun wajib diisi",
-                'tahun.numeric'=>"Format tahun salah",
-                'tempat.required'=>"Tempat wajib diisi",
-                'kep_piagam.required'=>"Kep piagam wajib diisi",
+            ], [
+                'personil_id.required' => "Personil id wajib diisi",
+                'personil_id.numeric' => "Format personil id salah",
+                'nama_kegiatan.required' => "Nama kegiatan wajib diisi",
+                'tahun.required' => "Tahun wajib diisi",
+                'tahun.numeric' => "Format tahun salah",
+                'tempat.required' => "Tempat wajib diisi",
+                'kep_piagam.required' => "Kep piagam wajib diisi",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
@@ -118,13 +118,13 @@ class PrestasiController extends Controller
                 'deskripsi' => 'nullable',
                 'kep_piagam' => 'required',
             ], [
-                'personil_id.required'=>"Personil id wajib diisi!",
-                'personil_id.numeric'=>"Format personil id salah",
-                'nama_kegiatan.required'=>"Nama kegiatan wajib diisi!",
-                'tahun.required'=>"Tahun wajib diisi!",
-                'tahun.numeric'=>"Format tahun salah",
-                'tempat.required'=>"Tempat wajib diisi!",
-                'kep_piagam.required'=>"Kep piagam wajib diisi!",
+                'personil_id.required' => "Personil id wajib diisi!",
+                'personil_id.numeric' => "Format personil id salah",
+                'nama_kegiatan.required' => "Nama kegiatan wajib diisi!",
+                'tahun.required' => "Tahun wajib diisi!",
+                'tahun.numeric' => "Format tahun salah",
+                'tempat.required' => "Tempat wajib diisi!",
+                'kep_piagam.required' => "Kep piagam wajib diisi!",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
@@ -154,7 +154,7 @@ class PrestasiController extends Controller
         }
     }
 
-    public function destroy($id_prestasi)
+    public function destroy($id_personil, $id_prestasi)
     {
         try {
             $prestasi = Prestasi::find($id_prestasi);
@@ -167,7 +167,7 @@ class PrestasiController extends Controller
             $data = [
                 'prestasi' => $prestasi,
             ];
-            return responseJson('Show prestasi', 200, 'Success',$data);
+            return responseJson('Show prestasi', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
