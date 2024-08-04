@@ -38,8 +38,26 @@ class PetaJabatanController extends Controller
             $perPage = $request->input('per_page', 100);
             $peta_jabatan = $query->paginate($perPage);
 
+            $resultPermit = collect($peta_jabatan->items())->groupBy('golongan');
+
             $data = [
-                'peta_jabatan' => $peta_jabatan
+                'current_page' => $peta_jabatan->currentPage(),
+                'data' => $resultPermit,
+                'first_page_url' => $peta_jabatan->url(1),
+                'from' => $peta_jabatan->firstItem(),
+                'last_page' => $peta_jabatan->lastPage(),
+                'last_page_url' => $peta_jabatan->url($peta_jabatan->lastPage()),
+                'links' => null,
+                'next_page_url' => $peta_jabatan->nextPageUrl(),
+                'path' => $peta_jabatan->path(),
+                'per_page' => $peta_jabatan->perPage(),
+                'prev_page_url' => $peta_jabatan->previousPageUrl(),
+                'to' => $peta_jabatan->lastItem(),
+                'total' => $peta_jabatan->total(),
+            ];
+
+            $data = [
+                "peta_jabatan" => $data,
             ];
 
             return responseJson('All peta_jabatan', 200, 'Success', $data);
