@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('message')->nullable();
             $table->text('attachment')->nullable();
             $table->text('attachment_name')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 

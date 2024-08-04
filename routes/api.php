@@ -4,10 +4,14 @@
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatController;
     use App\Http\Controllers\Api\V1\Admin\CatPersonilController;
     use App\Http\Controllers\Api\V1\Admin\ChatController;
+    use App\Http\Controllers\Api\V1\Admin\GolJabatanController;
     use App\Http\Controllers\Api\V1\Admin\HelpTicketController;
+    use App\Http\Controllers\Api\V1\Admin\JabatanController;
+    use App\Http\Controllers\Api\V1\Admin\KorpsController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterBinsiapsatCategoryController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterMaterialCategoryController;
     use App\Http\Controllers\Api\V1\Admin\MaterialController;
+    use App\Http\Controllers\Api\V1\Admin\PangkatController;
     use App\Http\Controllers\Api\V1\Admin\PermissionAdminController;
     use App\Http\Controllers\Api\V1\Admin\PersonilController;
     use App\Http\Controllers\Api\V1\Admin\PrestasiController;
@@ -76,8 +80,10 @@
             Route::post('personil', [PersonilController::class, 'store']);
             Route::delete('personil/{id}', [PersonilController::class, 'destroy']);
 
-            Route::get('list/personil/jabatan', [PersonilController::class, 'getJabatan']);
             Route::get('list/personil/satuan', [PersonilController::class, 'getSatuan']);
+            Route::get('list/personil/jabatan', [PersonilController::class, 'getJabatan']);
+            Route::get('list/personil/pangkat', [PersonilController::class, 'getPangkat']);
+            Route::get('list/personil/korps', [PersonilController::class, 'getKorps']);
             Route::get('list/personil/suku-bangsa', [PersonilController::class, 'getSukuBangsa']);
             Route::get('list/personil/agama', [PersonilController::class, 'getAgama']);
             Route::get('list/personil/sumber-pa', [PersonilController::class, 'getSumberPA']);
@@ -93,11 +99,11 @@
             Route::post('personil/{id_personil}/cat-personil/{id_cat_personil}', [CatPersonilController::class, 'update']);
             Route::delete('personil/{id_personil}/cat-personil/{id_cat_personil}', [CatPersonilController::class, 'destroy']);
 
-            Route::get('personil/{id_personil}/jabatan', [RiwayatJabatanController::class, 'index']);
-            Route::get('personil/{id_personil}/jabatan/{id_jabatan}', [RiwayatJabatanController::class, 'show']);
-            Route::post('personil/{id_personil}/jabatan', [RiwayatJabatanController::class, 'store']);
-            Route::post('personil/{id_personil}/jabatan/{id_jabatan}', [RiwayatJabatanController::class, 'update']);
-            Route::delete('personil/{id_personil}/jabatan/{id_jabatan}', [RiwayatJabatanController::class, 'destroy']);
+            Route::get('personil/{id_personil}/riwayat-jabatan', [RiwayatJabatanController::class, 'index']);
+            Route::get('personil/{id_personil}/riwayat-jabatan/{id_jabatan}', [RiwayatJabatanController::class, 'show']);
+            Route::post('personil/{id_personil}/riwayat-jabatan', [RiwayatJabatanController::class, 'store']);
+            Route::post('personil/{id_personil}/riwayat-jabatan/{id_jabatan}', [RiwayatJabatanController::class, 'update']);
+            Route::delete('personil/{id_personil}/riwayat-jabatan/{id_jabatan}', [RiwayatJabatanController::class, 'destroy']);
 
             Route::get('personil/{id_personil}/keluarga', [RiwayatKeluargaController::class, 'index']);
             Route::get('personil/{id_personil}/keluarga/{id_keluarga}', [RiwayatKeluargaController::class, 'show']);
@@ -177,6 +183,30 @@
             Route::post('satuan', [SatuanController::class, 'store']);
             Route::post('satuan/{id}', [SatuanController::class, 'update']);
             Route::delete('satuan/{id}', [SatuanController::class, 'destroy']);
+
+            // Gol Jabatan
+            Route::get('gol-jabatan', [GolJabatanController::class, 'index']);
+            Route::post('gol-jabatan', [GolJabatanController::class, 'store']);
+            Route::post('gol-jabatan/{id}', [GolJabatanController::class, 'update']);
+            Route::delete('gol-jabatan/{id}', [GolJabatanController::class, 'destroy']);
+
+            // Jabatan
+            Route::get('jabatan', [JabatanController::class, 'index']);
+            Route::post('jabatan', [JabatanController::class, 'store']);
+            Route::post('jabatan/{id}', [JabatanController::class, 'update']);
+            Route::delete('jabatan/{id}', [JabatanController::class, 'destroy']);
+
+            // Pangkat
+            Route::get('pangkat', [PangkatController::class, 'index']);
+            Route::post('pangkat', [PangkatController::class, 'store']);
+            Route::post('pangkat/{id}', [PangkatController::class, 'update']);
+            Route::delete('pangkat/{id}', [PangkatController::class, 'destroy']);
+
+            // Korps
+            Route::get('korps', [KorpsController::class, 'index']);
+            Route::post('korps', [KorpsController::class, 'store']);
+            Route::post('korps/{id}', [KorpsController::class, 'update']);
+            Route::delete('korps/{id}', [KorpsController::class, 'destroy']);
 
             Route::get('satuan-prestasi', [SatuanPrestasiController::class, 'index']);
             Route::get('satuan-prestasi/{id}', [SatuanPrestasiController::class, 'show']);

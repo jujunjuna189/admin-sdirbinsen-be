@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Imports\PersonilImport;
 use App\Models\Agama;
 use App\Models\AnakRiwayatKeluarga;
+use App\Models\Jabatan;
+use App\Models\Korps;
+use App\Models\Pangkat;
 use App\Models\PendidikanUmum;
 use App\Models\Personil;
 use App\Models\RiwayatJabatan;
@@ -414,21 +417,60 @@ class PersonilController extends Controller
         }
     }
 
+    // public function getRiwayatJabatan()
+    // {
+    //     try {
+    //         $jabatan = RiwayatJabatan::select('id', 'jabatan')->get();
+
+    //         $data = [
+    //             'jabatan' => $jabatan
+    //         ];
+
+    //         // Mengembalikan daftar dalam response JSON
+    //         return responseJson('Show list jabatan', 200, 'Success', $data);
+    //     } catch (\Throwable $th) {
+    //         $errorMessage = $th->getMessage();
+    //         return responseJson($errorMessage, 500, 'Error');
+    //     }
+    // }
+
     public function getJabatan()
     {
-        try {
-            $jabatan = RiwayatJabatan::select('id', 'jabatan')->get();
+        // Mengambil daftar dari data personil
+        $jabatan = Jabatan::select('id', 'nama')->get();
 
-            $data = [
-                'jabatan' => $jabatan
-            ];
+        $data = [
+            'jabatan' => $jabatan
+        ];
 
-            // Mengembalikan daftar dalam response JSON
-            return responseJson('Show list jabatan', 200, 'Success', $data);
-        } catch (\Throwable $th) {
-            $errorMessage = $th->getMessage();
-            return responseJson($errorMessage, 500, 'Error');
-        }
+        // Mengembalikan daftar posisi dalam response JSON
+        return responseJson('Show list jabatan', 200, 'Success', $data);
+    }
+
+    public function getPangkat()
+    {
+        // Mengambil daftar dari data personil
+        $pangkat = Pangkat::select('id', 'nama')->get();
+
+        $data = [
+            'pangkat' => $pangkat
+        ];
+
+        // Mengembalikan daftar posisi dalam response JSON
+        return responseJson('Show list pangkat', 200, 'Success', $data);
+    }
+
+    public function getKorps()
+    {
+        // Mengambil daftar dari data personil
+        $korps = Korps::select('id', 'nama')->get();
+
+        $data = [
+            'korps' => $korps
+        ];
+
+        // Mengembalikan daftar posisi dalam response JSON
+        return responseJson('Show list korps', 200, 'Success', $data);
     }
 
     public function getSatuan()
