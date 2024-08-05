@@ -169,6 +169,7 @@
 
             // Peta Jabatan
             Route::get('peta-jabatan', [PetaJabatanController::class, 'index']);
+            Route::get('peta-jabatan/{id}', [PetaJabatanController::class, 'show']);
             Route::post('peta-jabatan', [PetaJabatanController::class, 'store']);
             Route::post('peta-jabatan/{id_personil}', [PetaJabatanController::class, 'update']);
             Route::delete('peta-jabatan/{id_personil}', [PetaJabatanController::class, 'destroy']);

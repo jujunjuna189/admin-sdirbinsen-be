@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('personil_id');
             $table->string('kategori');
             $table->string('golongan');
-            $table->string('jabatan');
-            $table->date('tmt');
+            $table->string('jabatan')->nullable();
+            $table->date('tmt')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -67,6 +67,31 @@ class PetaJabatanController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        try {
+            // $peta_jabatan = peta_jabatan::where('id', $id)->first();
+            $peta_jabatan = PetaJabatan::notDeleted()
+                ->with(
+                    'personil',
+                )
+                ->where('id', $id)
+                ->first();
+
+            if (!$peta_jabatan) {
+                return responseJson('Data not found', 404, 'Error');
+            }
+
+            $data = [
+                'peta_jabatan' => $peta_jabatan,
+            ];
+            return responseJson('Show peta jabatan', 200, 'Success', $data);
+        } catch (\Throwable $th) {
+            $errorMessage = $th->getMessage();
+            return responseJson($errorMessage, 500, 'Error');
+        }
+    }
+
     public function store(Request $request)
     {
         try {

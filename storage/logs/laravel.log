@@ -1073,3 +1073,11 @@ Did you mean one of these?
 #39 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('D:\\\\Project-Kodi...')
 #40 {main}
 "} 
+[2024-08-05 15:40:07] local.ERROR: Trait "App\Models\SoftDeletes" not found {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Trait \"App\\Models\\SoftDeletes\" not found at D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\app\\Models\\PetaJabatan.php:8)
+[stacktrace]
+#0 {main}
+"} 
+[2024-08-05 15:40:08] local.ERROR: Trait "App\Models\SoftDeletes" not found {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Trait \"App\\Models\\SoftDeletes\" not found at D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\app\\Models\\PetaJabatan.php:8)
+[stacktrace]
+#0 {main}
+"} 
