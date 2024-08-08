@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,6 +38,21 @@ class Personil extends Model
 
         'picture',
     ];
+
+    public function getTanggalLahirAttribute($value)
+    {
+        return Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getTmtTniAttribute($value)
+    {
+        return Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getTmtJabAttribute($value)
+    {
+        return Carbon::parse($value)->format('d-m-Y');
+    }
 
     public function getPictureAttribute($value)
     {

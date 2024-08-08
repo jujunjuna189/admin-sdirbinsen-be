@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,6 +18,11 @@ class AnakRiwayatKeluarga extends Model
         'nama',
         'tanggal_lahir',
     ];
+
+    public function getTanggalLahirAttribute($value)
+    {
+        return Carbon::parse($value)->format('d-m-Y');
+    }
 
     // Define the relationship with the 'riwayat_keluarga' table
     public function riwayatKeluarga()

@@ -29,7 +29,9 @@
     use App\Http\Controllers\Api\V1\Admin\RoleAdminController;
     use App\Http\Controllers\Api\V1\Admin\SatuanController;
     use App\Http\Controllers\Api\V1\Admin\SatuanJabatanDansatController;
+    use App\Http\Controllers\Api\V1\Admin\SatuanLambangController;
     use App\Http\Controllers\Api\V1\Admin\SatuanPrestasiController;
+    use App\Http\Controllers\Api\V1\Admin\SatuanTradisiController;
     use App\Http\Controllers\Api\V1\Admin\UserController;
     use App\Http\Controllers\Api\V1\Admin\UserPermissionAdminController;
     use App\Http\Controllers\Api\V1\Admin\UserPersonilAdminController;
@@ -186,6 +188,18 @@
 
             // User from another table data
             Route::get('user-from-chat/{id}', [UserController::class, 'fromChat']);
+
+            // Satuan lambang
+            Route::get('satuan/lambang', [SatuanLambangController::class, 'index']);
+            Route::post('satuan/lambang', [SatuanLambangController::class, 'store']);
+            Route::post('satuan/lambang/{id}', [SatuanLambangController::class, 'update']);
+            Route::delete('satuan/lambang/{id}', [SatuanLambangController::class, 'destroy']);
+
+            // Satuan tradisi
+            Route::get('satuan/tradisi', [SatuanTradisiController::class, 'index']);
+            Route::post('satuan/tradisi', [SatuanTradisiController::class, 'store']);
+            Route::post('satuan/tradisi/{id}', [SatuanTradisiController::class, 'update']);
+            Route::delete('satuan/tradisi/{id}', [SatuanTradisiController::class, 'destroy']);
 
             Route::get('satuan', [SatuanController::class, 'index']);
             Route::get('satuan/{id}', [SatuanController::class, 'show']);
