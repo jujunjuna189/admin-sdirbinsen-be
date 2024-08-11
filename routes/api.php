@@ -29,6 +29,7 @@
     use App\Http\Controllers\Api\V1\Admin\RoleAdminController;
     use App\Http\Controllers\Api\V1\Admin\SatuanController;
     use App\Http\Controllers\Api\V1\Admin\SatuanJabatanDansatController;
+    use App\Http\Controllers\Api\V1\Admin\SatuanLainLainController;
     use App\Http\Controllers\Api\V1\Admin\SatuanLambangController;
     use App\Http\Controllers\Api\V1\Admin\SatuanPrestasiController;
     use App\Http\Controllers\Api\V1\Admin\SatuanTradisiController;
@@ -242,6 +243,12 @@
             Route::post('satuan-jabatan-dansat', [SatuanJabatanDansatController::class, 'store']);
             Route::post('satuan-jabatan-dansat/{id}', [SatuanJabatanDansatController::class, 'update']);
             Route::delete('satuan-jabatan-dansat/{id}', [SatuanJabatanDansatController::class, 'destroy']);
+
+            Route::get('satuan-lain-lain', [SatuanLainLainController::class, 'index']);
+            Route::get('satuan-lain-lain/{id}', [SatuanLainLainController::class, 'show']);
+            Route::post('satuan-lain-lain', [SatuanLainLainController::class, 'store']);
+            Route::post('satuan-lain-lain/{id}', [SatuanLainLainController::class, 'update']);
+            Route::delete('satuan-lain-lain/{id}', [SatuanLainLainController::class, 'destroy']);
 
             Route::get('material', [MaterialController::class, 'index']);
             Route::get('material/{id}', [MaterialController::class, 'show']);

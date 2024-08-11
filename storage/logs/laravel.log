@@ -1095,3 +1095,12 @@ Did you mean one of these?
 #9 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #10 {main}
 "} 
+[2024-08-11 16:32:16] local.ERROR: There are no commands defined in the "clear" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"clear\" namespace. at D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\symfony\\console\\Application.php:657)
+[stacktrace]
+#0 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\symfony\\console\\Application.php(708): Symfony\\Component\\Console\\Application->findNamespace('clear')
+#1 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\symfony\\console\\Application.php(262): Symfony\\Component\\Console\\Application->find('clear:cache')
+#2 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\symfony\\console\\Application.php(174): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
