@@ -2,6 +2,7 @@
 
     use App\Http\Controllers\Api\V1\Admin\AgamaAdminController;
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatController;
+    use App\Http\Controllers\Api\V1\Admin\BinsiapsatIndukController;
     use App\Http\Controllers\Api\V1\Admin\CatPersonilController;
     use App\Http\Controllers\Api\V1\Admin\ChatController;
     use App\Http\Controllers\Api\V1\Admin\GolJabatanController;
@@ -274,6 +275,12 @@
                 Route::post('binsiapsat-category', [MasterBinsiapsatCategoryController::class, 'store']);
                 Route::delete('binsiapsat-category/{id}', [MasterBinsiapsatCategoryController::class, 'destroy']);
             });
+
+            Route::get('binsiapsat/induk', [BinsiapsatIndukController::class, 'index']);
+            Route::get('binsiapsat/induk/{id}', [BinsiapsatIndukController::class, 'show']);
+            Route::post('binsiapsat/induk/{id}', [BinsiapsatIndukController::class, 'update']);
+            Route::post('binsiapsat/induk', [BinsiapsatIndukController::class, 'store']);
+            Route::delete('binsiapsat/induk/{id}', [BinsiapsatIndukController::class, 'destroy']);
 
             Route::get('binsiapsat', [BinsiapsatController::class, 'index']);
             Route::get('binsiapsat/{id}', [BinsiapsatController::class, 'show']);

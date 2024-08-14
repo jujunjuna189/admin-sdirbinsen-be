@@ -140,7 +140,7 @@ class SatuanLainLainController extends Controller
                 $newFilename = "gambar_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'satuan_lain_lain/gambar';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
-                $satuan->gambar = Storage::disk('public')->url($path . '/' . $newFilename);;
+                $satuan->gambar = Storage::disk('public')->url($path . '/' . $newFilename);
             }
 
             $satuan->save();
