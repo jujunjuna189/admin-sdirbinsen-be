@@ -1,8 +1,12 @@
     <?php
 
     use App\Http\Controllers\Api\V1\Admin\AgamaAdminController;
+    use App\Http\Controllers\Api\V1\Admin\BinsiapsatBinsatLaplakgiatController;
+    use App\Http\Controllers\Api\V1\Admin\BinsiapsatBinsatRenlakgiatController;
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatController;
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatIndukController;
+    use App\Http\Controllers\Api\V1\Admin\BinsiapsatLapsatIndukController;
+    use App\Http\Controllers\Api\V1\Admin\BinsiapsatLapsatLampiranController;
     use App\Http\Controllers\Api\V1\Admin\CatPersonilController;
     use App\Http\Controllers\Api\V1\Admin\ChatController;
     use App\Http\Controllers\Api\V1\Admin\GolJabatanController;
@@ -275,6 +279,30 @@
                 Route::post('binsiapsat-category', [MasterBinsiapsatCategoryController::class, 'store']);
                 Route::delete('binsiapsat-category/{id}', [MasterBinsiapsatCategoryController::class, 'destroy']);
             });
+
+            Route::get('binsiapsat/binsat/laplakgiat', [BinsiapsatBinsatLaplakgiatController::class, 'index']);
+            Route::get('binsiapsat/binsat/laplakgiat/{id}', [BinsiapsatBinsatLaplakgiatController::class, 'show']);
+            Route::post('binsiapsat/binsat/laplakgiat/{id}', [BinsiapsatBinsatLaplakgiatController::class, 'update']);
+            Route::post('binsiapsat/binsat/laplakgiat', [BinsiapsatBinsatLaplakgiatController::class, 'store']);
+            Route::delete('binsiapsat/binsat/laplakgiat/{id}', [BinsiapsatBinsatLaplakgiatController::class, 'destroy']);
+
+            Route::get('binsiapsat/binsat/renlakgiat', [BinsiapsatBinsatRenlakgiatController::class, 'index']);
+            Route::get('binsiapsat/binsat/renlakgiat/{id}', [BinsiapsatBinsatRenlakgiatController::class, 'show']);
+            Route::post('binsiapsat/binsat/renlakgiat/{id}', [BinsiapsatBinsatRenlakgiatController::class, 'update']);
+            Route::post('binsiapsat/binsat/renlakgiat', [BinsiapsatBinsatRenlakgiatController::class, 'store']);
+            Route::delete('binsiapsat/binsat/renlakgiat/{id}', [BinsiapsatBinsatRenlakgiatController::class, 'destroy']);
+
+            Route::get('binsiapsat/lapsat/lampiran', [BinsiapsatLapsatLampiranController::class, 'index']);
+            Route::get('binsiapsat/lapsat/lampiran/{id}', [BinsiapsatLapsatLampiranController::class, 'show']);
+            Route::post('binsiapsat/lapsat/lampiran/{id}', [BinsiapsatLapsatLampiranController::class, 'update']);
+            Route::post('binsiapsat/lapsat/lampiran', [BinsiapsatLapsatLampiranController::class, 'store']);
+            Route::delete('binsiapsat/lapsat/lampiran/{id}', [BinsiapsatLapsatLampiranController::class, 'destroy']);
+
+            Route::get('binsiapsat/lapsat/induk', [BinsiapsatLapsatIndukController::class, 'index']);
+            Route::get('binsiapsat/lapsat/induk/{id}', [BinsiapsatLapsatIndukController::class, 'show']);
+            Route::post('binsiapsat/lapsat/induk/{id}', [BinsiapsatLapsatIndukController::class, 'update']);
+            Route::post('binsiapsat/lapsat/induk', [BinsiapsatLapsatIndukController::class, 'store']);
+            Route::delete('binsiapsat/lapsat/induk/{id}', [BinsiapsatLapsatIndukController::class, 'destroy']);
 
             Route::get('binsiapsat/induk', [BinsiapsatIndukController::class, 'index']);
             Route::get('binsiapsat/induk/{id}', [BinsiapsatIndukController::class, 'show']);
