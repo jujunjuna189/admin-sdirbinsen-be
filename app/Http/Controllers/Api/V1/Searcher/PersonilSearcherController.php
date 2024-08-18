@@ -15,7 +15,7 @@ class PersonilSearcherController extends Controller
         try {
             // $query = Personil::search($request->Input('search'));
             $query = Personil::query();
-            $query->with('jabatanSekarang', 'kepangkatanSekarang', 'satuanSekarang');
+            $query->with('satuan');
             // Apply search
             $search = $request->input('search');
             if (!empty($search)) {
@@ -58,7 +58,7 @@ class PersonilSearcherController extends Controller
             }
 
             // Paginate the results
-            $perPage = $request->input('per_page', 100);
+            $perPage = $request->input('per_page', 50);
             $personil = $query->paginate($perPage);
 
             // $transformedPersonil = $personil->map(function ($item) {
@@ -102,11 +102,18 @@ class PersonilSearcherController extends Controller
         try {
             // $personil = Personil::where('id', $id)->first();
             $personil = Personil::notDeleted()
-                ->with('jabatanSekarang', 'kepangkatanSekarang', 'satuanSekarang',
-                    'penugasanLuarNegeri', 'penugasanOperasi',
-                    'pangkat', 'jabatan',
-                    'keluarga', 'tandaJasa',
-                    'pendidikanUmum', 'pendidikanMiliter', 'kemampuanBahasa',
+                ->with(
+                    'satuan:id,nama',
+                    'penugasanLuarNegeri',
+                    'penugasanOperasi',
+                    'pangkats',
+                    'jabatans',
+                    'prestasi',
+                    'keluarga',
+                    'tandaJasa',
+                    'pendidikanUmum',
+                    'pendidikanMiliter',
+                    'kemampuanBahasa',
                 )
                 ->where('id', $id)
                 ->first();
@@ -114,14 +121,11 @@ class PersonilSearcherController extends Controller
             if (!$personil) {
                 return responseJson('Data not found', 404, 'Error');
             }
-            $riwayat_keluarga_anak = AnakRiwayatKeluarga::where('riwayat_keluarga_id', $personil->keluarga[0]->id)->get();
-
-            $personil->riwayat_keluarga_anak = $riwayat_keluarga_anak ?? [];
 
             $data = [
                 'personil' => $personil,
             ];
-            return responseJson('Show personil', 200, 'Success',$data);
+            return responseJson('Show personil', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');

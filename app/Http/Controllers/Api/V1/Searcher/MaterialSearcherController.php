@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Searcher;
 
 use App\Http\Controllers\Controller;
-use App\Models\Materials;
+use App\Models\Material;
 use Illuminate\Http\Request;
 
 class MaterialSearcherController extends Controller
@@ -11,14 +11,14 @@ class MaterialSearcherController extends Controller
     public function index(Request $request)
     {
         try {
-            $query = Materials::query();
+            $query = Material::query();
 
             // Apply search
             $search = $request->input('search');
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
-                    $q->where('title', 'like', "%$search%")
-                      ->orWhere('category', 'like', "%$search%");
+                    $q->where('nama', 'like', "%$search%")
+                        ->orWhere('kategori', 'like', "%$search%");
                 });
             }
 
@@ -29,9 +29,9 @@ class MaterialSearcherController extends Controller
             }
 
             // Apply filtering by created_at
-            $category = $request->input('category');
-            if (!empty($category)) {
-                $query->whereDate('category', $category);
+            $kategori = $request->input('kategori');
+            if (!empty($kategori)) {
+                $query->whereDate('kategori', $kategori);
             }
 
             // Paginate the results
@@ -52,14 +52,14 @@ class MaterialSearcherController extends Controller
     public function show($id)
     {
         try {
-            $material = Materials::where('id',$id)->first();
+            $material = Material::where('id', $id)->first();
             if (!$material) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'material' => $material
             ];
-            return responseJson('Show material', 200, 'Success',$data);
+            return responseJson('Show material', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -71,7 +71,7 @@ class MaterialSearcherController extends Controller
         try {
             $id = $request->query('id');
             $limit = $request->query('limit');
-            $material = Materials::where('id',$id)->first();
+            $material = Material::where('id', $id)->first();
             if (!$material) {
                 return responseJson('Data not found', 404, 'Error');
             }
@@ -82,7 +82,7 @@ class MaterialSearcherController extends Controller
             $selectedCreatedAt = $material->created_at;
             $selectedUpdatedAt = $material->updated_at;
 
-            $materialRecommended = Materials::where('id', '!=', $id)
+            $materialRecommended = Material::where('id', '!=', $id)
                 ->orderByRaw("(
                     (title = '$selectedTitle') +
                     (category = '$selectedCategory') +
@@ -96,7 +96,7 @@ class MaterialSearcherController extends Controller
             $data = [
                 'material_recommended' => $materialRecommended
             ];
-            return responseJson('Show material', 200, 'Success',$data);
+            return responseJson('Show material', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -106,10 +106,10 @@ class MaterialSearcherController extends Controller
     public function getCategoryList()
     {
         // Mengambil daftar posisi (distinct) dari data personil
-        $category = Materials::distinct('category')->pluck('category');
+        $category = Material::distinct('category')->pluck('category');
 
         $data = [
-            'category'=>$category
+            'category' => $category
         ];
 
         // Mengembalikan daftar posisi dalam response JSON

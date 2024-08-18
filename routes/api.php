@@ -42,6 +42,10 @@
     use App\Http\Controllers\Api\V1\Admin\UserPermissionAdminController;
     use App\Http\Controllers\Api\V1\Admin\UserPersonilAdminController;
     use App\Http\Controllers\Api\V1\AuthController;
+    use App\Http\Controllers\Api\V1\Searcher\BinsiapsatBinsatLaplakgiatSearcherController;
+    use App\Http\Controllers\Api\V1\Searcher\BinsiapsatBinsatRenlakgiatSearcherController;
+    use App\Http\Controllers\Api\V1\Searcher\BinsiapsatLapsatIndukSearcherController;
+    use App\Http\Controllers\Api\V1\Searcher\BinsiapsatLapsatLampiranSearcherController;
     use App\Http\Controllers\Api\V1\Searcher\MaterialSearcherController;
     use App\Http\Controllers\Api\V1\Searcher\PersonilSearcherController;
     use App\Http\Controllers\Api\V1\Searcher\RiwayatJabatanSearcherController;
@@ -356,6 +360,13 @@
             'prefix' => 'searcher',
             // 'middleware' => ['jwt.role:2']
         ], function () {
+
+            // Binsiapsat
+            Route::get('binsiapsat/binsat/renlakgiat', [BinsiapsatBinsatRenlakgiatSearcherController::class, 'index']);
+            Route::get('binsiapsat/binsat/laplakgiat', [BinsiapsatBinsatLaplakgiatSearcherController::class, 'index']);
+
+            Route::get('binsiapsat/lapsat/induk', [BinsiapsatLapsatIndukSearcherController::class, 'index']);
+            Route::get('binsiapsat/lapsat/lampiran', [BinsiapsatLapsatLampiranSearcherController::class, 'index']);
 
             Route::get('personil', [PersonilSearcherController::class, 'index']);
             Route::get('personil/{id}', [PersonilSearcherController::class, 'show']);

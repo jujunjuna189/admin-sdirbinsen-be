@@ -83,10 +83,11 @@ class Personil extends Model
 
     public function kepangkatanSekarang()
     {
-        return $this->hasOne(RiwayatKepangkatan::class, 'personil_id')
-            ->where('isActive', 1)
-            ->orderBy('tmt', 'desc')
-            ->limit(1);
+        // return $this->hasOne(RiwayatKepangkatan::class, 'personil_id')
+        //     ->where('isActive', 1)
+        //     ->orderBy('tmt', 'desc')
+        //     ->limit(1);
+        return (object)[];
     }
 
     public function satuan()
@@ -104,10 +105,11 @@ class Personil extends Model
 
     public function jabatanSekarang()
     {
-        return $this->hasOne(RiwayatJabatan::class, 'personil_id')
-            ->where('isActive', 1)
-            ->orderBy('tmt', 'desc')
-            ->limit(1);
+        // return $this->hasOne(RiwayatJabatan::class, 'personil_id')
+        //     ->where('isActive', 1)
+        //     ->orderBy('tmt', 'desc')
+        //     ->limit(1);
+        return (object)[];
     }
 
     /**
