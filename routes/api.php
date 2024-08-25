@@ -12,6 +12,8 @@
     use App\Http\Controllers\Api\V1\Admin\GolJabatanController;
     use App\Http\Controllers\Api\V1\Admin\HelpTicketController;
     use App\Http\Controllers\Api\V1\Admin\JabatanController;
+    use App\Http\Controllers\Api\V1\Admin\KompersSatjarCategorysController;
+    use App\Http\Controllers\Api\V1\Admin\KompersSatjarController;
     use App\Http\Controllers\Api\V1\Admin\KorpsController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterBinsiapsatCategoryController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterMaterialCategoryController;
@@ -178,6 +180,15 @@
             Route::post('personil/{id_personil}/prestasi', [PrestasiController::class, 'store']);
             Route::post('personil/{id_personil}/prestasi/{id_prestasi}', [PrestasiController::class, 'update']);
             Route::delete('personil/{id_personil}/prestasi/{id_prestasi}', [PrestasiController::class, 'destroy']);
+
+            // Kompers Satjar
+            Route::get('kompers-satjar', [KompersSatjarController::class, 'index']);
+            Route::post('kompers-satjar', [KompersSatjarController::class, 'store']);
+            Route::post('kompers-satjar/{id}', [KompersSatjarController::class, 'update']);
+
+            // Kompers Satjar category
+            Route::get('kompers-satjar/category', [KompersSatjarCategorysController::class, 'index']);
+            Route::post('kompers-satjar/category', [KompersSatjarCategorysController::class, 'store']);
 
             // Peta Jabatan
             Route::get('peta-jabatan', [PetaJabatanController::class, 'index']);
