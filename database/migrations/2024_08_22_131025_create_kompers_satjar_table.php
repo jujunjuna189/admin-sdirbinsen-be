@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('kompers_satjar', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('kompers_satjar_categorys_id');
             $table->string('category')->comment('from name table kompers_satjar');
             $table->string('sub_category')->comment('from name table kompers_satjar');
             $table->string('title');

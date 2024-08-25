@@ -181,14 +181,14 @@
             Route::post('personil/{id_personil}/prestasi/{id_prestasi}', [PrestasiController::class, 'update']);
             Route::delete('personil/{id_personil}/prestasi/{id_prestasi}', [PrestasiController::class, 'destroy']);
 
+            // Kompers Satjar category
+            Route::get('kompers-satjar/category', [KompersSatjarCategorysController::class, 'index']);
+            Route::post('kompers-satjar/category', [KompersSatjarCategorysController::class, 'store']);
+
             // Kompers Satjar
             Route::get('kompers-satjar', [KompersSatjarController::class, 'index']);
             Route::post('kompers-satjar', [KompersSatjarController::class, 'store']);
             Route::post('kompers-satjar/{id}', [KompersSatjarController::class, 'update']);
-
-            // Kompers Satjar category
-            Route::get('kompers-satjar/category', [KompersSatjarCategorysController::class, 'index']);
-            Route::post('kompers-satjar/category', [KompersSatjarCategorysController::class, 'store']);
 
             // Peta Jabatan
             Route::get('peta-jabatan', [PetaJabatanController::class, 'index']);

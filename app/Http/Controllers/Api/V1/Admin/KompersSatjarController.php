@@ -27,6 +27,11 @@ class KompersSatjarController extends Controller
                 $query->where('id', $id);
             }
 
+            $kompers_satjar_categorys_id = $request->input('kompers_satjar_categorys_id');
+            if (!empty($kompers_satjar_categorys_id)) {
+                $query->where('kompers_satjar_categorys_id', $kompers_satjar_categorys_id);
+            }
+
             $category = $request->input('category');
             if (!empty($category)) {
                 $query->where('category', $category);
@@ -62,6 +67,7 @@ class KompersSatjarController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
+                'kompers_satjar_categorys_id' => 'required',
                 'category' => 'required',
                 'sub_category' => 'required',
                 'title' => 'required',
@@ -74,6 +80,7 @@ class KompersSatjarController extends Controller
             }
 
             $kompers_satjar = new KompersSatjar;
+            $kompers_satjar->kompers_satjar_categorys_id = $request->input('kompers_satjar_categorys_id');
             $kompers_satjar->category = $request->input('category');
             $kompers_satjar->sub_category = $request->input('sub_category');
             $kompers_satjar->title = $request->input('title');
@@ -96,6 +103,7 @@ class KompersSatjarController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
+                'kompers_satjar_categorys_id' => 'required',
                 'category' => 'required',
                 'sub_category' => 'required',
                 'title' => 'required',
@@ -108,6 +116,7 @@ class KompersSatjarController extends Controller
             }
 
             $kompers_satjar = KompersSatjar::find($id);
+            $kompers_satjar->kompers_satjar_categorys_id = $request->input('kompers_satjar_categorys_id');
             $kompers_satjar->category = $request->input('category');
             $kompers_satjar->sub_category = $request->input('sub_category');
             $kompers_satjar->title = $request->input('title');
