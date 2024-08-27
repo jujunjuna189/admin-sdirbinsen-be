@@ -23,7 +23,8 @@ class MaterialController extends Controller
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
                     $q->where('nama', 'like', "%$search%")
-                    ->orWhere('kondisi', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
+                        ->orWhere('jenis', 'like', "%$search%")
+                        ->orWhere('kondisi', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
                 });
             }
 
@@ -51,7 +52,7 @@ class MaterialController extends Controller
             }
 
             // Apply filtering by satuan_id (assuming 'satuan_id' is a column in the Material table)
-            $satuan_id = $request->input('satuan_id') ;
+            $satuan_id = $request->input('satuan_id');
             if (!empty($satuan_id)) {
                 $query->where('satuan_id', $satuan_id);
             }
@@ -113,7 +114,7 @@ class MaterialController extends Controller
             $material->save();
 
             $data = [
-                'material'=> [
+                'material' => [
                     'id' => $material->id,
                     // 'nama' => $material->nama,
                     'kondisi' => $material->kondisi,
@@ -138,7 +139,7 @@ class MaterialController extends Controller
             $data = [
                 'material' => $material
             ];
-            return responseJson('Show material', 200, 'Success',$data);
+            return responseJson('Show material', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -192,7 +193,7 @@ class MaterialController extends Controller
             $material->save();
 
             $data = [
-                'material'=>$material
+                'material' => $material
             ];
 
             return responseJson('Update material', 200, 'Success', $data);
@@ -210,7 +211,7 @@ class MaterialController extends Controller
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
-                'material'=>$material
+                'material' => $material
             ];
             $material->delete();
             return responseJson('Delete material', 200, 'Success', $data);
@@ -273,7 +274,7 @@ class MaterialController extends Controller
         $category = Material::distinct('kategori')->pluck('kategori');
 
         $data = [
-            'category'=>$category
+            'category' => $category
         ];
 
         // Mengembalikan daftar posisi dalam response JSON

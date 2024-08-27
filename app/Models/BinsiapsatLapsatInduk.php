@@ -9,7 +9,7 @@ class BinsiapsatLapsatInduk extends Model
 {
     use HasFactory;
 
-    protected $table = 'binsiapsats_binsat_renlakgiat';
+    protected $table = 'binsiapsats_lapsat_induk';
     protected $guarded = ['id'];
 
     public function satuan()

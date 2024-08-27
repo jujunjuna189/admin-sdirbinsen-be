@@ -20,7 +20,7 @@ class RiwayatPendidikanUmumController extends Controller
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
                     $q->where('nama_pendidikan', 'like', "%$search%")
-                    ->orWhere('jenis_pendidikan', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
+                        ->orWhere('jenis_pendidikan', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
                 });
             }
 
@@ -48,14 +48,14 @@ class RiwayatPendidikanUmumController extends Controller
     public function show($id_personil, $id_pendidikan_umum)
     {
         try {
-            $pendidikan_umum = PendidikanUmum::where('id',$id_pendidikan_umum)->first();
+            $pendidikan_umum = PendidikanUmum::where('id', $id_pendidikan_umum)->first();
             if (!$pendidikan_umum) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'pendidikan_umum' => $pendidikan_umum
             ];
-            return responseJson('Show Pendidikan Umum', 200, 'Success',$data);
+            return responseJson('Show Pendidikan Umum', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -70,14 +70,14 @@ class RiwayatPendidikanUmumController extends Controller
                 'jenis_pendidikan' => 'required',
                 'tahun' => 'required|integer|digits:4',
                 'nama_pendidikan' => 'required',
-            ],[
-                'personil_id.required'=>"Personil ID wajib diisi!",
-                'personil_id.numeric'=>"Format Personil ID salah!",
-                'jenis_pendidikan.required'=>"Jenis pendidikan wajib diisi!",
-                'tahun.required'=>"Tahun wajib diisi!",
-                'tahun.integer'=>"Format Tahun salah!",
-                'tahun.digits'=>"Panjang tahun harus 4 digit!",
-                'nama_pendidikan.required'=>"Nama pendidikan wajib diisi!",
+            ], [
+                'personil_id.required' => "Personil ID wajib diisi!",
+                'personil_id.numeric' => "Format Personil ID salah!",
+                'jenis_pendidikan.required' => "Jenis pendidikan wajib diisi!",
+                'tahun.required' => "Tahun wajib diisi!",
+                'tahun.integer' => "Format Tahun salah!",
+                'tahun.digits' => "Panjang tahun harus 4 digit!",
+                'nama_pendidikan.required' => "Nama pendidikan wajib diisi!",
             ]);
 
             if ($validator->fails()) {
@@ -86,7 +86,7 @@ class RiwayatPendidikanUmumController extends Controller
 
             // CHECK PERSONNEL
             $checkPersonil = Personil::find($request->personil_id);
-            if(!$checkPersonil){
+            if (!$checkPersonil) {
                 return responseJson("Personil not found", 404, "Error");
             }
 
@@ -101,7 +101,7 @@ class RiwayatPendidikanUmumController extends Controller
             $pendidikan_umum->save();
 
             $data = [
-                'pendidikan_umum'=> $pendidikan_umum
+                'pendidikan_umum' => $pendidikan_umum
             ];
 
             return responseJson('Add riwayat pendidikan umum', 201, 'Success', $data);
@@ -126,13 +126,13 @@ class RiwayatPendidikanUmumController extends Controller
                 'tahun' => 'required|integer|digits:4',
                 'nama_pendidikan' => 'required',
             ], [
-                'personil_id.required'=>"Personil ID wajib diisi!",
-                'personil_id.numeric'=>"Format Personil ID salah!",
-                'jenis_pendidikan.required'=>"Jenis pendidikan wajib diisi!",
-                'tahun.required'=>"Tahun wajib diisi!",
-                'tahun.integer'=>"Format Tahun salah!",
-                'tahun.digits'=>"Panjang tahun harus 4 digit!",
-                'nama_pendidikan.required'=>"Nama pendidikan wajib diisi!",
+                'personil_id.required' => "Personil ID wajib diisi!",
+                'personil_id.numeric' => "Format Personil ID salah!",
+                'jenis_pendidikan.required' => "Jenis pendidikan wajib diisi!",
+                'tahun.required' => "Tahun wajib diisi!",
+                'tahun.integer' => "Format Tahun salah!",
+                'tahun.digits' => "Panjang tahun harus 4 digit!",
+                'nama_pendidikan.required' => "Nama pendidikan wajib diisi!",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
@@ -140,7 +140,7 @@ class RiwayatPendidikanUmumController extends Controller
 
             // CHECK PERSONNEL
             $checkPersonil = Personil::find($request->personil_id);
-            if(!$checkPersonil){
+            if (!$checkPersonil) {
                 return responseJson("Personil not found", 404, "Error");
             }
 
@@ -154,7 +154,7 @@ class RiwayatPendidikanUmumController extends Controller
             $pendidikan_umum->save();
 
             $data = [
-                'pendidikan_umum'=>$pendidikan_umum
+                'pendidikan_umum' => $pendidikan_umum
             ];
 
             return responseJson('Update riwayat pendidikan umum', 200, 'Success', $data);
@@ -172,7 +172,7 @@ class RiwayatPendidikanUmumController extends Controller
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
-                'pendidikan_umum'=>$pendidikan_umum
+                'pendidikan_umum' => $pendidikan_umum
             ];
             $pendidikan_umum->delete();
             return responseJson('Delete riwayat pendidikan umum', 200, 'Success', $data);

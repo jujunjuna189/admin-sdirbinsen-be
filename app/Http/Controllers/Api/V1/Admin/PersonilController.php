@@ -533,7 +533,7 @@ class PersonilController extends Controller
 
     public function getSumberPA()
     {
-        $sumber_pa = ['Akmil', 'Sepa PK', 'Secapa PK', 'BA PK', 'Ba reg', 'TA PK'];
+        $sumber_pa = ['Akmil', 'Sepa PK', 'Secaba PK', 'BA PK', 'Ba reg', 'TA PK'];
 
         $data = [
             'sumber_pa' => $sumber_pa
