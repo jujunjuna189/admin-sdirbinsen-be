@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Learning;
+use App\Models\LearningMunisi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
-class LearningController extends Controller
+class LearningMunisiController extends Controller
 {
     public function index(Request $request)
     {
         try {
-            $query = Learning::query()->with('satuan');
+            $query = LearningMunisi::query()->with('satuan');
 
             // Apply search
             $search = $request->input('search');
@@ -68,7 +68,7 @@ class LearningController extends Controller
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
             }
 
-            $learning = new Learning;
+            $learning = new LearningMunisi();
             $learning->satuan_id = $request->input('satuan_id');
             $learning->category = $request->input('category');
             $learning->title = $request->input('title');
@@ -77,7 +77,7 @@ class LearningController extends Controller
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
                 $newFilename = "file" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
-                $path = 'learning';
+                $path = 'learning/munisi';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $learning->file = Storage::disk('public')->url($path . '/' . $newFilename);;
             }
@@ -98,7 +98,7 @@ class LearningController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $learning = Learning::find($id);
+            $learning = LearningMunisi::find($id);
             if (!$learning) {
                 return responseJson('Data not found', 404, 'Error');
             }
@@ -130,7 +130,7 @@ class LearningController extends Controller
     public function destroy($id)
     {
         try {
-            $learning = Learning::find($id);
+            $learning = LearningMunisi::find($id);
             if (!$learning) {
                 return responseJson('Data not found', 404, 'Error');
             }
