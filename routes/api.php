@@ -15,6 +15,7 @@
     use App\Http\Controllers\Api\V1\Admin\KompersSatjarCategorysController;
     use App\Http\Controllers\Api\V1\Admin\KompersSatjarController;
     use App\Http\Controllers\Api\V1\Admin\KorpsController;
+    use App\Http\Controllers\Api\V1\Admin\LearningController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterBinsiapsatCategoryController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterMaterialCategoryController;
     use App\Http\Controllers\Api\V1\Admin\MaterialController;
@@ -330,6 +331,12 @@
             Route::post('binsiapsat/{id}', [BinsiapsatController::class, 'update']);
             Route::post('binsiapsat', [BinsiapsatController::class, 'store']);
             Route::delete('binsiapsat/{id}', [BinsiapsatController::class, 'destroy']);
+
+            // Leaning
+            Route::get('learning', [LearningController::class, 'index']);
+            Route::post('learning', [LearningController::class, 'store']);
+            Route::post('learning/{id}', [LearningController::class, 'update']);
+            Route::delete('learning/{id}', [LearningController::class, 'destroy']);
 
             Route::get('chat', [ChatController::class, 'index']);
             Route::post('chat', [ChatController::class, 'store']);
