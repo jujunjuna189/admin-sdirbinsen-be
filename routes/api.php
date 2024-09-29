@@ -17,7 +17,9 @@
     use App\Http\Controllers\Api\V1\Admin\KorpsController;
     use App\Http\Controllers\Api\V1\Admin\LearningAlutsistaController;
     use App\Http\Controllers\Api\V1\Admin\LearningMunisiController;
+    use App\Http\Controllers\Api\V1\Admin\LearningPejabatSatuanController;
     use App\Http\Controllers\Api\V1\Admin\LearningResponsibilityController;
+    use App\Http\Controllers\Api\V1\Admin\LearningSatuanController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterBinsiapsatCategoryController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterMaterialCategoryController;
     use App\Http\Controllers\Api\V1\Admin\MaterialController;
@@ -37,6 +39,7 @@
     use App\Http\Controllers\Api\V1\Admin\RiwayatPenugasanOperasiController;
     use App\Http\Controllers\Api\V1\Admin\RiwayatTandaJasaController;
     use App\Http\Controllers\Api\V1\Admin\RoleAdminController;
+    use App\Http\Controllers\Api\V1\Admin\RoleHasPermissionController;
     use App\Http\Controllers\Api\V1\Admin\SatuanController;
     use App\Http\Controllers\Api\V1\Admin\SatuanJabatanDansatController;
     use App\Http\Controllers\Api\V1\Admin\SatuanLainLainController;
@@ -350,6 +353,16 @@
             Route::post('learning/responsibility/{id}', [LearningResponsibilityController::class, 'update']);
             Route::delete('learning/responsibility/{id}', [LearningResponsibilityController::class, 'destroy']);
 
+            Route::get('learning/satuan', [LearningSatuanController::class, 'index']);
+            Route::post('learning/satuan', [LearningSatuanController::class, 'store']);
+            Route::post('learning/satuan/{id}', [LearningSatuanController::class, 'update']);
+            Route::delete('learning/satuan/{id}', [LearningSatuanController::class, 'destroy']);
+
+            Route::get('learning/pejabat-satuan', [LearningPejabatSatuanController::class, 'index']);
+            Route::post('learning/pejabat-satuan', [LearningPejabatSatuanController::class, 'store']);
+            Route::post('learning/pejabat-satuan/{id}', [LearningPejabatSatuanController::class, 'update']);
+            Route::delete('learning/pejabat-satuan/{id}', [LearningPejabatSatuanController::class, 'destroy']);
+
             Route::get('chat', [ChatController::class, 'index']);
             Route::post('chat', [ChatController::class, 'store']);
             Route::post('chat-download', [ChatController::class, 'download']);
@@ -366,12 +379,13 @@
             Route::post('permission', [PermissionAdminController::class, 'store']);
             Route::delete('permission/{id}', [PermissionAdminController::class, 'destroy']);
 
+            Route::get('role-permission', [RoleHasPermissionController::class, 'index']);
+
             Route::get('agama', [AgamaAdminController::class, 'index']);
             Route::get('agama/{id}', [AgamaAdminController::class, 'show']);
             Route::post('agama/{id}', [AgamaAdminController::class, 'update']);
             Route::post('agama', [AgamaAdminController::class, 'store']);
             Route::delete('agama/{id}', [AgamaAdminController::class, 'destroy']);
-
 
             Route::get('user-permission/{id}', [UserPermissionAdminController::class, 'show']);
             Route::post('user-permission/{id}', [UserPermissionAdminController::class, 'update']);
