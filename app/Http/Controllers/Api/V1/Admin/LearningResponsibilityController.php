@@ -33,6 +33,11 @@ class LearningResponsibilityController extends Controller
                 $query->where('category', $category);
             }
 
+            $type = $request->input('type');
+            if (!empty($type)) {
+                $query->where('type', $type);
+            }
+
             // Apply filtering by created_at
             $created_at = $request->input('created_at');
             if (!empty($created_at)) {
@@ -71,6 +76,7 @@ class LearningResponsibilityController extends Controller
             $learning = new LearningResponsibility();
             $learning->satuan_id = $request->input('satuan_id');
             $learning->category = $request->input('category');
+            $learning->type = $request->input('type');
             $learning->title = $request->input('title');
             $learning->description = $request->input('description');
 

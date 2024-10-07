@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('satuan_id');
             $table->string('category');
+            $table->string('type')->nullable();
             $table->string('title');
             $table->string('description')->nullable();
             $table->text('file');
