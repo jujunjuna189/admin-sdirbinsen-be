@@ -35,6 +35,7 @@ class LearningAlutsistaController extends Controller
 
             $type = $request->input('type');
             if (!empty($type)) {
+                $type = str_replace('-', ' ', $type);
                 $query->where('type', $type);
             }
 
