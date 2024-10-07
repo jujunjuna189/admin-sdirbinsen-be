@@ -37,6 +37,7 @@ class PersonilController extends Controller
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
                     $q->where('suku_bangsa', 'like', "%$search%")
+                        ->orWhere('nrp', 'like', "%$search%")
                         ->orWhere('nama', 'like', "%$search%")
                         ->orWhere('tempat_lahir', 'like', "%$search%");
                 });

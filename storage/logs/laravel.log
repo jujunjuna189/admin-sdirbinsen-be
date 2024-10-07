@@ -1741,3 +1741,19 @@ Did you mean one of these?
 #9 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #10 {main}
 "} 
+[2024-10-07 18:34:16] local.ERROR: Command "server" is not defined.
+
+Did you mean one of these?
+    make:observer
+    serve {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"server\" is not defined.
+
+Did you mean one of these?
+    make:observer
+    serve at D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\symfony\\console\\Application.php:725)
+[stacktrace]
+#0 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\symfony\\console\\Application.php(262): Symfony\\Component\\Console\\Application->find('server')
+#1 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\symfony\\console\\Application.php(174): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 D:\\Project-Koding\\Laravel\\Mas_Hari\\sdirbinsen\\data-admin-be\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 {main}
+"} 
