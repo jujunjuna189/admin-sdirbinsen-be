@@ -18,7 +18,7 @@ class RiwayatPenugasanOperasiSearcherController extends Controller
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
                     $q->where('nama', 'like', "%$search%")
-                    ->orWhere('category', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
+                        ->orWhere('category', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
                 });
             }
 
@@ -46,14 +46,14 @@ class RiwayatPenugasanOperasiSearcherController extends Controller
     public function show($id_personil, $id_tugas_operasi)
     {
         try {
-            $tugas_operasi = RiwayatPenugasanOperasi::where('id',$id_tugas_operasi)->first();
+            $tugas_operasi = RiwayatPenugasanOperasi::where('id', $id_tugas_operasi)->first();
             if (!$tugas_operasi) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'tugas_operasi' => $tugas_operasi
             ];
-            return responseJson('Show Riwayat Penugasan Operasi', 200, 'Success',$data);
+            return responseJson('Show Riwayat Penugasan Operasi', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');

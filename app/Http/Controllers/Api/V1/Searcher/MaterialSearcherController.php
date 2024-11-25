@@ -29,10 +29,16 @@ class MaterialSearcherController extends Controller
                 $query->whereDate('created_at', $created_at);
             }
 
-            // Apply filtering by created_at
+            // Apply filtering
             $kategori = $request->input('kategori');
             if (!empty($kategori)) {
-                $query->whereDate('kategori', $kategori);
+                $query->where('kategori', $kategori);
+            }
+
+            // Apply filtering by satuan_id (assuming 'satuan_id' is a column in the Material table)
+            $satuan_id = $request->input('satuan_id');
+            if (!empty($satuan_id)) {
+                $query->where('satuan_id', $satuan_id);
             }
 
             // Paginate the results
