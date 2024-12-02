@@ -8,6 +8,7 @@ use App\Imports\MaterialImport;
 use App\Models\Material;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -108,8 +109,14 @@ class MaterialController extends Controller
             $material->kategori = $request->input('kategori');
             $material->status = $request->input('status');
             $material->no_reg = $request->input('no_reg');
-            $material->file = $request->input('file');
             $material->keterangan = $request->input('keterangan');
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $newFilename = "gambar_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                $path = 'satuan_material/gambar';
+                Storage::disk('public')->putFileAs($path, $file, $newFilename);
+                $material->file = Storage::disk('public')->url($path . '/' . $newFilename);
+            }
 
             $material->save();
 
@@ -187,8 +194,14 @@ class MaterialController extends Controller
             $material->kategori = $request->input('kategori');
             $material->status = $request->input('status');
             $material->no_reg = $request->input('no_reg');
-            $material->file = $request->input('file');
             $material->keterangan = $request->input('keterangan');
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $newFilename = "gambar_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                $path = 'satuan_material/gambar';
+                Storage::disk('public')->putFileAs($path, $file, $newFilename);
+                $material->file = Storage::disk('public')->url($path . '/' . $newFilename);
+            }
 
             $material->save();
 

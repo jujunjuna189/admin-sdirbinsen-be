@@ -45,6 +45,7 @@
     use App\Http\Controllers\Api\V1\Admin\SatuanLainLainController;
     use App\Http\Controllers\Api\V1\Admin\SatuanLambangController;
     use App\Http\Controllers\Api\V1\Admin\SatuanPrestasiController;
+    use App\Http\Controllers\Api\V1\Admin\SatuanPurnawirawanController;
     use App\Http\Controllers\Api\V1\Admin\SatuanTradisiController;
     use App\Http\Controllers\Api\V1\Admin\UserController;
     use App\Http\Controllers\Api\V1\Admin\UserPermissionAdminController;
@@ -269,6 +270,12 @@
             Route::post('satuan-jabatan-dansat', [SatuanJabatanDansatController::class, 'store']);
             Route::post('satuan-jabatan-dansat/{id}', [SatuanJabatanDansatController::class, 'update']);
             Route::delete('satuan-jabatan-dansat/{id}', [SatuanJabatanDansatController::class, 'destroy']);
+
+            Route::get('satuan-purnawirawan', [SatuanPurnawirawanController::class, 'index']);
+            Route::get('satuan-purnawirawan/{id}', [SatuanPurnawirawanController::class, 'show']);
+            Route::post('satuan-purnawirawan', [SatuanPurnawirawanController::class, 'store']);
+            Route::post('satuan-purnawirawan/{id}', [SatuanPurnawirawanController::class, 'update']);
+            Route::delete('satuan-purnawirawan/{id}', [SatuanPurnawirawanController::class, 'destroy']);
 
             Route::get('satuan-lain-lain', [SatuanLainLainController::class, 'index']);
             Route::get('satuan-lain-lain/{id}', [SatuanLainLainController::class, 'show']);

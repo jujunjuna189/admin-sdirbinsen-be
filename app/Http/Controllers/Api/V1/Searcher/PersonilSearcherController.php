@@ -27,6 +27,12 @@ class PersonilSearcherController extends Controller
                 });
             }
 
+            // Apply filtering by tmt_1
+            $tmt_1 = $request->input('tmt_1');
+            if (!empty($tmt_1)) {
+                $query->whereYear('tmt_1', $tmt_1);
+            }
+
             // Apply filtering by tmt_tni
             $tmt_tni = $request->input('tmt_tni');
             if (!empty($tmt_tni)) {
