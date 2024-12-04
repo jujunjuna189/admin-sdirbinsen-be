@@ -98,6 +98,38 @@ class PetaJabatanController extends Controller
         }
     }
 
+    public function summary(Request $request)
+    {
+        try {
+            $query = PetaJabatan::query();
+            $satuan_id = $request->input('satuan_id');
+            if (!empty($satuan_id)) {
+                $query->where('satuan_id', $satuan_id);
+            }
+
+            // Query untuk menghitung filled dan empty
+            $data = $query->selectRaw("
+                SUM(CASE WHEN personil_id IS NOT NULL THEN 1 ELSE 0 END) as filled,
+                SUM(CASE WHEN personil_id IS NULL THEN 1 ELSE 0 END) as empty
+            ")->first();
+
+            // Konversi hasil ke array
+            $result = [
+                'filled' => $data->filled,
+                'empty' => $data->empty,
+            ];
+
+            $data = [
+                "peta_jabatan" => $result,
+            ];
+
+            return responseJson('All peta_jabatan', 200, 'Success', $data);
+        } catch (\Throwable $th) {
+            $errorMessage = $th->getMessage();
+            return responseJson($errorMessage, 500, 'Error');
+        }
+    }
+
     public function store(Request $request)
     {
         try {
