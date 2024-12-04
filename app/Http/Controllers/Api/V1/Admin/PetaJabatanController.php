@@ -13,19 +13,24 @@ class PetaJabatanController extends Controller
     {
         try {
             $query = PetaJabatan::query();
-            $query->with('personil');
+            $query->with('satuan', 'personil');
 
             // Apply search
             $search = $request->input('search');
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
-                    $q->where('perosnil_id', 'like', "%$search%");
+                    $q->where('jabatan', 'like', "%$search%");
                 });
             }
 
             $id = $request->input('id');
             if (!empty($id)) {
                 $query->where('id', $id);
+            }
+
+            $satuan_id = $request->input('satuan_id');
+            if (!empty($satuan_id)) {
+                $query->where('satuan_id', $satuan_id);
             }
 
             // Apply filtering by created_at
@@ -73,6 +78,7 @@ class PetaJabatanController extends Controller
             // $peta_jabatan = peta_jabatan::where('id', $id)->first();
             $peta_jabatan = PetaJabatan::notDeleted()
                 ->with(
+                    'satuan',
                     'personil',
                 )
                 ->where('id', $id)
@@ -96,21 +102,18 @@ class PetaJabatanController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'personil_id' => 'required',
-                'golongan' => 'required',
+                'satuan_id' => 'required',
                 'jabatan' => 'required',
-                'tmt' => 'required',
             ], [
-                'personil_id.required' => "Personil wajib diisi!",
-                'golongan.required' => "Golongan wajib diisi!",
-                'jabatan.required' => "Jabatan wajib diisi!",
-                'tmt.required' => "Tmt wajib diisi!",
+                'satuan_id.required' => "Satuan wajib diisi!",
+                'jabatan.required' => "Nama jabatan wajib diisi!",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
             }
 
             $peta_jabatan = new PetaJabatan;
+            $peta_jabatan->satuan_id = $request->input('satuan_id');
             $peta_jabatan->personil_id = $request->input('personil_id');
             $peta_jabatan->kategori = $request->input('kategori');
             $peta_jabatan->golongan = $request->input('golongan');
@@ -139,20 +142,17 @@ class PetaJabatanController extends Controller
             }
             // Validate the updated data
             $validator = Validator::make($request->all(), [
-                'personil_id' => 'required',
-                'golongan' => 'required',
+                'satuan_id' => 'required',
                 'jabatan' => 'required',
-                'tmt' => 'required',
             ], [
-                'personil_id.required' => "Personil wajib diisi!",
-                'golongan.required' => "Golongan wajib diisi!",
-                'jabatan.required' => "Jabatan wajib diisi!",
-                'tmt.required' => "Tmt wajib diisi!",
+                'satuan_id.required' => "Satuan wajib diisi!",
+                'jabatan.required' => "Nama jabatan wajib diisi!",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
             }
 
+            $peta_jabatan->satuan_id = $request->input('satuan_id');
             $peta_jabatan->personil_id = $request->input('personil_id');
             $peta_jabatan->kategori = $request->input('kategori');
             $peta_jabatan->golongan = $request->input('golongan');

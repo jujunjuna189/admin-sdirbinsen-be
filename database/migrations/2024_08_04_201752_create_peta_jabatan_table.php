@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('peta_jabatan', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('personil_id');
-            $table->string('kategori');
-            $table->string('golongan');
+            $table->bigInteger('satuan_id');
+            $table->bigInteger('personil_id')->nullable();
+            $table->string('kategori')->nullable();
+            $table->string('golongan')->nullable();
             $table->string('jabatan')->nullable();
             $table->date('tmt')->nullable();
             $table->softDeletes();

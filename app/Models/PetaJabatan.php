@@ -19,6 +19,11 @@ class PetaJabatan extends Model
         return $query->whereNull('deleted_at');
     }
 
+    public function satuan()
+    {
+        return $this->belongsTo(Satuan::class, 'satuan_id');
+    }
+
     public function personil()
     {
         return $this->hasOne(Personil::class, 'id', 'personil_id');
