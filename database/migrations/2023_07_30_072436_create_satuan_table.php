@@ -27,6 +27,7 @@ return new class extends Migration
             $table->text('latitude')->nullable();
             $table->text('longitude')->nullable();
             $table->string('status')->nullable();
+            $table->integer('order_number')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

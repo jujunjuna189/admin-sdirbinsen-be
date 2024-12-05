@@ -33,6 +33,8 @@ class SatuanSearcherController extends Controller
                 $query->whereDate('created_at', $created_at);
             }
 
+            $query->orderBy("order_number", "asc");
+
             // Paginate the results
             $perPage = $request->input('per_page', 100);
             $satuan = $query->paginate($perPage);
@@ -51,14 +53,14 @@ class SatuanSearcherController extends Controller
     public function show($id)
     {
         try {
-            $satuan = Satuan::where('id',$id)->first();
+            $satuan = Satuan::where('id', $id)->first();
             if (!$satuan) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'satuan' => $satuan
             ];
-            return responseJson('Show Satuan', 200, 'Success',$data);
+            return responseJson('Show Satuan', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');

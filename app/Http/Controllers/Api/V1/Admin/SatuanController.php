@@ -40,6 +40,9 @@ class SatuanController extends Controller
                 $query->whereDate('created_at', $created_at);
             }
 
+            // order
+            $query->orderBy("order_number", "asc");
+
             // Paginate the results
             $perPage = $request->input('per_page', 100);
             $satuan = $query->paginate($perPage);
@@ -120,6 +123,7 @@ class SatuanController extends Controller
             $satuan->latitude = $request->input('latitude');
             $satuan->longitude = $request->input('longitude');
             $satuan->status = $request->input('status');
+            $satuan->order_number = $request->input('order_number');
 
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');
@@ -203,6 +207,7 @@ class SatuanController extends Controller
             $satuan->latitude = $request->input('latitude');
             $satuan->longitude = $request->input('longitude');
             $satuan->status = $request->input('status');
+            $satuan->order_number = $request->input('order_number');
 
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');

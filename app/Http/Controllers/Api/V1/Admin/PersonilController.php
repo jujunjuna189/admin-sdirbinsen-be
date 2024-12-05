@@ -503,7 +503,7 @@ class PersonilController extends Controller
     public function getSatuan()
     {
         // Mengambil daftar dari data personil
-        $satuan = Satuan::select('id', 'nama')->get();
+        $satuan = Satuan::select('id', 'nama')->orderBy("order_number", "asc")->get();
 
         $data = [
             'satuan' => $satuan
