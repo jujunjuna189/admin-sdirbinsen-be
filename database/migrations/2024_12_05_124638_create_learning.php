@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('learning_responsibility', function (Blueprint $table) {
+        Schema::create('learning', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('satuan_id');
+            $table->bigInteger('satuan_id')->nullable();
             $table->string('category');
-            $table->string('type')->nullable();
             $table->string('title');
             $table->string('description')->nullable();
             $table->text('file');
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('learning_responsibility');
+        Schema::dropIfExists('learning');
     }
 };

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\LearningMunisi;
+use App\Models\Learning;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
-class LearningMunisiController extends Controller
+class LearningController extends Controller
 {
     public function index(Request $request)
     {
         try {
-            $query = LearningMunisi::query()->with('satuan');
+            $query = Learning::query()->with('satuan');
 
             // Apply search
             $search = $request->input('search');
@@ -68,7 +68,7 @@ class LearningMunisiController extends Controller
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
             }
 
-            $learning = new LearningMunisi();
+            $learning = new Learning();
             $learning->satuan_id = $request->input('satuan_id');
             $learning->category = $request->input('category');
             $learning->title = $request->input('title');
@@ -77,7 +77,7 @@ class LearningMunisiController extends Controller
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
                 $newFilename = "file" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
-                $path = 'learning/munisi';
+                $path = 'learning/alutsista';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $learning->file = Storage::disk('public')->url($path . '/' . $newFilename);;
             }
@@ -98,7 +98,7 @@ class LearningMunisiController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $learning = LearningMunisi::find($id);
+            $learning = Learning::find($id);
             if (!$learning) {
                 return responseJson('Data not found', 404, 'Error');
             }
@@ -113,6 +113,16 @@ class LearningMunisiController extends Controller
             }
 
             $learning->title = $request->input('title');
+            $learning->satuan_id = $request->input('satuan_id');
+            $learning->description = $request->input('description');
+
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $newFilename = "file" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                $path = 'learning/alutsista';
+                Storage::disk('public')->putFileAs($path, $file, $newFilename);
+                $learning->file = Storage::disk('public')->url($path . '/' . $newFilename);;
+            }
 
             $learning->save();
 
@@ -130,7 +140,7 @@ class LearningMunisiController extends Controller
     public function destroy($id)
     {
         try {
-            $learning = LearningMunisi::find($id);
+            $learning = Learning::find($id);
             if (!$learning) {
                 return responseJson('Data not found', 404, 'Error');
             }

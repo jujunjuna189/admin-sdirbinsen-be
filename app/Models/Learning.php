@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LearningResponsibility extends Model
+class Learning extends Model
 {
     use HasFactory;
 
-    protected $table = 'learning_responsibility';
+    protected $table = 'learning';
     protected $guarded = ['id'];
 
     public function satuan()

@@ -15,11 +15,7 @@
     use App\Http\Controllers\Api\V1\Admin\KompersSatjarCategorysController;
     use App\Http\Controllers\Api\V1\Admin\KompersSatjarController;
     use App\Http\Controllers\Api\V1\Admin\KorpsController;
-    use App\Http\Controllers\Api\V1\Admin\LearningAlutsistaController;
-    use App\Http\Controllers\Api\V1\Admin\LearningMunisiController;
-    use App\Http\Controllers\Api\V1\Admin\LearningPejabatSatuanController;
-    use App\Http\Controllers\Api\V1\Admin\LearningResponsibilityController;
-    use App\Http\Controllers\Api\V1\Admin\LearningSatuanController;
+    use App\Http\Controllers\Api\V1\Admin\LearningController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterBinsiapsatCategoryController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterMaterialCategoryController;
     use App\Http\Controllers\Api\V1\Admin\MaterialController;
@@ -345,31 +341,11 @@
             Route::post('binsiapsat', [BinsiapsatController::class, 'store']);
             Route::delete('binsiapsat/{id}', [BinsiapsatController::class, 'destroy']);
 
-            // Leaning
-            Route::get('learning/alutsista', [LearningAlutsistaController::class, 'index']);
-            Route::post('learning/alutsista', [LearningAlutsistaController::class, 'store']);
-            Route::post('learning/alutsista/{id}', [LearningAlutsistaController::class, 'update']);
-            Route::delete('learning/alutsista/{id}', [LearningAlutsistaController::class, 'destroy']);
-
-            Route::get('learning/munisi', [LearningMunisiController::class, 'index']);
-            Route::post('learning/munisi', [LearningMunisiController::class, 'store']);
-            Route::post('learning/munisi/{id}', [LearningMunisiController::class, 'update']);
-            Route::delete('learning/munisi/{id}', [LearningMunisiController::class, 'destroy']);
-
-            Route::get('learning/responsibility', [LearningResponsibilityController::class, 'index']);
-            Route::post('learning/responsibility', [LearningResponsibilityController::class, 'store']);
-            Route::post('learning/responsibility/{id}', [LearningResponsibilityController::class, 'update']);
-            Route::delete('learning/responsibility/{id}', [LearningResponsibilityController::class, 'destroy']);
-
-            Route::get('learning/satuan', [LearningSatuanController::class, 'index']);
-            Route::post('learning/satuan', [LearningSatuanController::class, 'store']);
-            Route::post('learning/satuan/{id}', [LearningSatuanController::class, 'update']);
-            Route::delete('learning/satuan/{id}', [LearningSatuanController::class, 'destroy']);
-
-            Route::get('learning/pejabat-satuan', [LearningPejabatSatuanController::class, 'index']);
-            Route::post('learning/pejabat-satuan', [LearningPejabatSatuanController::class, 'store']);
-            Route::post('learning/pejabat-satuan/{id}', [LearningPejabatSatuanController::class, 'update']);
-            Route::delete('learning/pejabat-satuan/{id}', [LearningPejabatSatuanController::class, 'destroy']);
+            // // Leaning
+            Route::get('learning', [LearningController::class, 'index']);
+            Route::post('learning', [LearningController::class, 'store']);
+            Route::post('learning/{id}', [LearningController::class, 'update']);
+            Route::delete('learning/{id}', [LearningController::class, 'destroy']);
 
             Route::get('chat', [ChatController::class, 'index']);
             Route::post('chat', [ChatController::class, 'store']);
