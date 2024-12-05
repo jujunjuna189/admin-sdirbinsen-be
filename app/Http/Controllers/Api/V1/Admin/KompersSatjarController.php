@@ -42,6 +42,11 @@ class KompersSatjarController extends Controller
                 $query->where('sub_category', $sub_category);
             }
 
+            $part = $request->input('part');
+            if (!empty($part)) {
+                $query->where('part', $part);
+            }
+
             // Apply filtering by created_at
             $created_at = $request->input('created_at');
             if (!empty($created_at)) {
@@ -70,6 +75,7 @@ class KompersSatjarController extends Controller
                 'kompers_satjar_categorys_id' => 'required',
                 'category' => 'required',
                 'sub_category' => 'required',
+                'part' => 'required',
                 'title' => 'required',
                 'form' => 'required',
             ], [
@@ -83,6 +89,7 @@ class KompersSatjarController extends Controller
             $kompers_satjar->kompers_satjar_categorys_id = $request->input('kompers_satjar_categorys_id');
             $kompers_satjar->category = $request->input('category');
             $kompers_satjar->sub_category = $request->input('sub_category');
+            $kompers_satjar->part = $request->input('part');
             $kompers_satjar->title = $request->input('title');
             $kompers_satjar->form = is_array($request->input('form')) ? json_encode($request->input('form') ?? []) : json_encode([]);
 
@@ -106,6 +113,7 @@ class KompersSatjarController extends Controller
                 'kompers_satjar_categorys_id' => 'required',
                 'category' => 'required',
                 'sub_category' => 'required',
+                'part' => 'required',
                 'title' => 'required',
                 'form' => 'required',
             ], [
@@ -119,6 +127,7 @@ class KompersSatjarController extends Controller
             $kompers_satjar->kompers_satjar_categorys_id = $request->input('kompers_satjar_categorys_id');
             $kompers_satjar->category = $request->input('category');
             $kompers_satjar->sub_category = $request->input('sub_category');
+            $kompers_satjar->part = $request->input('part');
             $kompers_satjar->title = $request->input('title');
             $kompers_satjar->form = is_array($request->input('form')) ? json_encode($request->input('form') ?? []) : json_encode([]);
 
@@ -129,6 +138,24 @@ class KompersSatjarController extends Controller
             ];
 
             return responseJson('Update kompers satjar', 201, 'Success', $data);
+        } catch (\Throwable $th) {
+            $errorMessage = $th->getMessage();
+            return responseJson($errorMessage, 500, 'Error');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $kompers_satjar = KompersSatjar::find($id);
+            if (!$kompers_satjar) {
+                return responseJson('Data not found', 404, 'Error');
+            }
+            $data = [
+                'kompers_satjar' => $kompers_satjar
+            ];
+            $kompers_satjar->delete();
+            return responseJson('Delete kompers satjar', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');

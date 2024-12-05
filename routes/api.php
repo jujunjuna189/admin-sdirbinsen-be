@@ -192,6 +192,7 @@
             Route::get('kompers-satjar', [KompersSatjarController::class, 'index']);
             Route::post('kompers-satjar', [KompersSatjarController::class, 'store']);
             Route::post('kompers-satjar/{id}', [KompersSatjarController::class, 'update']);
+            Route::delete('kompers-satjar/{id}', [KompersSatjarController::class, 'destroy']);
 
             // Peta Jabatan
             Route::get('peta-jabatan', [PetaJabatanController::class, 'index']);

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('kompers_satjar_categorys_id');
             $table->string('category')->comment('from name table kompers_satjar');
             $table->string('sub_category')->comment('from name table kompers_satjar');
+            $table->string('part');
             $table->string('title');
             $table->text('form')->comment('from name table kompers_satjar');
             $table->softDeletes();
