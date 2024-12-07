@@ -107,7 +107,7 @@ class SiapsatController extends Controller
                 $newFilename = "siapsat_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'siapsat';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
-                $siapsat->siapsat = Storage::disk('public')->url($path . '/' . $newFilename);;
+                $siapsat->image = Storage::disk('public')->url($path . '/' . $newFilename);;
             }
 
             $siapsat->save();
@@ -155,7 +155,7 @@ class SiapsatController extends Controller
                 $newFilename = "siapsat_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'siapsat';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
-                $siapsat->siapsat = Storage::disk('public')->url($path . '/' . $newFilename);;
+                $siapsat->image = Storage::disk('public')->url($path . '/' . $newFilename);;
             }
 
             $siapsat->save();
