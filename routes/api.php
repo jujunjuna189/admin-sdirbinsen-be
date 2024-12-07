@@ -1,6 +1,7 @@
     <?php
 
     use App\Http\Controllers\Api\V1\Admin\AgamaAdminController;
+    use App\Http\Controllers\Api\V1\Admin\AnnouncementController;
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatBinsatLaplakgiatController;
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatBinsatRenlakgiatController;
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatController;
@@ -43,6 +44,7 @@
     use App\Http\Controllers\Api\V1\Admin\SatuanPrestasiController;
     use App\Http\Controllers\Api\V1\Admin\SatuanPurnawirawanController;
     use App\Http\Controllers\Api\V1\Admin\SatuanTradisiController;
+    use App\Http\Controllers\Api\V1\Admin\SiapsatController;
     use App\Http\Controllers\Api\V1\Admin\UserController;
     use App\Http\Controllers\Api\V1\Admin\UserPermissionAdminController;
     use App\Http\Controllers\Api\V1\Admin\UserPersonilAdminController;
@@ -89,6 +91,13 @@
             'prefix' => 'admin',
             // 'middleware' => ['jwt.role:1']
         ], function () {
+
+            // Announcement
+            Route::get('pengumuman', [AnnouncementController::class, 'index']);
+            Route::get('pengumuman/{id}', [AnnouncementController::class, 'show']);
+            Route::post('pengumuman/{id}', [AnnouncementController::class, 'update']);
+            Route::post('pengumuman', [AnnouncementController::class, 'store']);
+            Route::delete('pengumuman/{id}', [AnnouncementController::class, 'destroy']);
 
             // PERSONIL
             Route::get('personil', [PersonilController::class, 'index']);
@@ -341,6 +350,13 @@
             Route::post('binsiapsat/{id}', [BinsiapsatController::class, 'update']);
             Route::post('binsiapsat', [BinsiapsatController::class, 'store']);
             Route::delete('binsiapsat/{id}', [BinsiapsatController::class, 'destroy']);
+
+            // Siapsat
+            Route::get('siapsat', [SiapsatController::class, 'index']);
+            Route::get('siapsat/{id}', [SiapsatController::class, 'show']);
+            Route::post('siapsat/{id}', [SiapsatController::class, 'update']);
+            Route::post('siapsat', [SiapsatController::class, 'store']);
+            Route::delete('siapsat/{id}', [SiapsatController::class, 'destroy']);
 
             // // Leaning
             Route::get('learning', [LearningController::class, 'index']);
