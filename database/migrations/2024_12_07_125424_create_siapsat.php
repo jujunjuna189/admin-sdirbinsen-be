@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('satuan_id')->nullable();
             $table->string("category");
             $table->string("title");
-            $table->text("description");
-            $table->text("image");
+            $table->text("description")->nullable();
+            $table->text("image")->nullable();
             $table->timestamps();
         });
     }
