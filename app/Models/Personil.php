@@ -46,12 +46,12 @@ class Personil extends Model
 
     public function getTmtTniAttribute($value)
     {
-        return Carbon::parse($value)->format('d-m-Y');
+        return $value != null ? Carbon::parse($value)->format('d-m-Y') : null;
     }
 
     public function getTmtJabAttribute($value)
     {
-        return Carbon::parse($value)->format('d-m-Y');
+        return $value != null ? Carbon::parse($value)->format('d-m-Y') : null;
     }
 
     public function getPictureAttribute($value)

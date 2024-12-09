@@ -163,7 +163,7 @@ class PersonilController extends Controller
             $nrp = Personil::where('nrp', $request->nrp)->first();
             if ($nrp) {
                 $errors = $validator->errors();
-                $errors->add('nrp', 'NRP already exists');
+                $errors->add('nrp', 'NRP Sudah digunakan');
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
             }
 

@@ -73,12 +73,11 @@ class SatuanPurnawirawanController extends Controller
             $validator = Validator::make($request->all(), [
                 'satuan_id' => 'required|exists:satuan,id',
                 'nama' => 'required',
-                'gambar' => 'required|file:max:5120',
-                'deskripsi' => 'nullable'
+                'gambar' => 'file:max:5120',
             ], [
                 'satuan_id.required' => "Satuan id harus diisi",
                 'nama.required' => "Nama wajib diisi!",
-                'gambar.required' => "Gambar wajib diupload!",
+                'gambar.max' => "Gambar terlalu besar!",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
@@ -87,6 +86,11 @@ class SatuanPurnawirawanController extends Controller
             $satuan = new SatuanPurnawirawan();
             $satuan->satuan_id = $request->input('satuan_id');
             $satuan->nama = $request->input('nama');
+            $satuan->pangkat = $request->input('pangkat');
+            $satuan->jabatan = $request->input('jabatan');
+            $satuan->leting = $request->input('leting');
+            $satuan->no_hp = $request->input('no_hp');
+            $satuan->alamat = $request->input('alamat');
             $satuan->deskripsi = $request->input('deskripsi');
 
             if ($request->hasFile('gambar')) {
@@ -121,11 +125,11 @@ class SatuanPurnawirawanController extends Controller
             $validator = Validator::make($request->all(), [
                 'satuan_id' => 'required|exists:satuan,id',
                 'nama' => 'required',
-                'gambar' => 'nullable|file:max:5120',
-                'deskripsi' => 'nullable'
+                'gambar' => 'file:max:5120',
             ], [
                 'satuan_id.required' => "Satuan id harus diisi",
                 'nama.required' => "Nama wajib diisi!",
+                'gambar.max' => "Gambar terlalu besar!",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
@@ -133,6 +137,11 @@ class SatuanPurnawirawanController extends Controller
 
             $satuan->satuan_id = $request->input('satuan_id');
             $satuan->nama = $request->input('nama');
+            $satuan->pangkat = $request->input('pangkat');
+            $satuan->jabatan = $request->input('jabatan');
+            $satuan->leting = $request->input('leting');
+            $satuan->no_hp = $request->input('no_hp');
+            $satuan->alamat = $request->input('alamat');
             $satuan->deskripsi = $request->input('deskripsi');
 
             if ($request->hasFile('gambar')) {

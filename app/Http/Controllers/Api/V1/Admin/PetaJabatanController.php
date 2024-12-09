@@ -33,11 +33,26 @@ class PetaJabatanController extends Controller
                 $query->where('satuan_id', $satuan_id);
             }
 
+            $personil_id = $request->input('personil_id');
+            if (!empty($personil_id)) {
+                if (ctype_digit($personil_id)) {
+                    $query->where('personil_id', $personil_id);
+                } else if (ctype_alpha($personil_id)) {
+                    if ($personil_id == 'empty') {
+                        $query->whereNull('personil_id');
+                    } else {
+                        $query->whereNotNull('personil_id');
+                    }
+                }
+            }
+
             // Apply filtering by created_at
             $created_at = $request->input('created_at');
             if (!empty($created_at)) {
                 $query->whereDate('created_at', $created_at);
             }
+
+            $query->orderBy('order_number', 'desc');
 
             // Paginate the results
             $perPage = $request->input('per_page', 100);
@@ -150,6 +165,7 @@ class PetaJabatanController extends Controller
             $peta_jabatan->kategori = $request->input('kategori');
             $peta_jabatan->golongan = $request->input('golongan');
             $peta_jabatan->jabatan = $request->input('jabatan');
+            $peta_jabatan->order_number = $request->input('order_number');
             $peta_jabatan->tmt = $request->input('tmt');
 
             $peta_jabatan->save();
@@ -189,6 +205,7 @@ class PetaJabatanController extends Controller
             $peta_jabatan->kategori = $request->input('kategori');
             $peta_jabatan->golongan = $request->input('golongan');
             $peta_jabatan->jabatan = $request->input('jabatan');
+            $peta_jabatan->order_number = $request->input('order_number');
             $peta_jabatan->tmt = $request->input('tmt');
 
             $peta_jabatan->save();
