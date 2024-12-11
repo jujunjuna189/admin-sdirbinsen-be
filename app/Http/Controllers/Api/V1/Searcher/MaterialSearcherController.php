@@ -11,7 +11,7 @@ class MaterialSearcherController extends Controller
     public function index(Request $request)
     {
         try {
-            $query = Material::query();
+            $query = Material::query()->with('satuan');
 
             // Apply search
             $search = $request->input('search');
@@ -33,6 +33,12 @@ class MaterialSearcherController extends Controller
             $kategori = $request->input('kategori');
             if (!empty($kategori)) {
                 $query->where('kategori', $kategori);
+            }
+
+            // Apply filtering
+            $jenis = $request->input('jenis');
+            if (!empty($jenis)) {
+                $query->where('jenis', $jenis);
             }
 
             // Apply filtering by satuan_id (assuming 'satuan_id' is a column in the Material table)

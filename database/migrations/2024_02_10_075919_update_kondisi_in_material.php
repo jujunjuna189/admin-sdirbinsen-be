@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('material', function (Blueprint $table) {
             $table->string('kondisi')->nullable()->change();
             $table->string('jenis')->nullable();
+            $table->integer('jumlah')->nullable();
         });
     }
 
@@ -25,6 +26,7 @@ return new class extends Migration
         Schema::table('material', function (Blueprint $table) {
             $table->boolean('kondisi');
             $table->dropColumn('jenis');
+            $table->dropColumn('jumlah');
         });
     }
 };

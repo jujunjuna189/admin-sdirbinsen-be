@@ -47,6 +47,12 @@ class MaterialController extends Controller
                 $query->where('kategori', $kategori);
             }
 
+            // Apply filtering
+            $jenis = $request->input('jenis');
+            if (!empty($jenis)) {
+                $query->where('jenis', $jenis);
+            }
+
             $no_reg = $request->input('no_reg');
             if (!empty($no_reg)) {
                 $query->where('no_reg', $no_reg);
@@ -78,23 +84,11 @@ class MaterialController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'satuan_id' => 'required|numeric',
-                // 'nama' => 'required',
-                'kondisi' => 'required',
-                'jenis' => 'required',
-                'status' => 'required',
-                'kategori' => 'required',
-                'no_reg' => 'required',
-                'keterangan' => 'required',
+                'nama' => 'required',
             ], [
                 'satuan_id.required' => 'Satuan wajib diisi!',
                 'satuan_id.numeric' => 'Format Satuan salah!',
-                // 'nama.required' => 'Nama material wajib diisi!',
-                'kondisi.required' => 'Kondisi wajib diisi!',
-                'jenis.required' => 'Jenis wajib diisi!',
-                'status.required' => 'Status wajib diisi!',
-                'kategori.required' => 'Kategori wajib diisi!',
-                'no_reg.required' => 'No reg wajib diisi!',
-                'keterangan.required' => 'Keterangan wajib diisi!',
+                'nama.required' => 'Nama material wajib diisi!',
             ]);
 
             if ($validator->fails()) {
@@ -103,12 +97,13 @@ class MaterialController extends Controller
 
             $material = new Material();
             $material->satuan_id = $request->input('satuan_id');
-            // $material->nama = $request->input('nama');
+            $material->nama = $request->input('nama');
             $material->kondisi = $request->input('kondisi');
             $material->jenis = $request->input('jenis');
             $material->kategori = $request->input('kategori');
             $material->status = $request->input('status');
             $material->no_reg = $request->input('no_reg');
+            $material->jumlah = $request->input('jumlah');
             $material->keterangan = $request->input('keterangan');
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
@@ -164,23 +159,11 @@ class MaterialController extends Controller
             // Validate the updated data
             $validator = Validator::make($request->all(), [
                 'satuan_id' => 'required|numeric',
-                // 'nama' => 'required',
-                'kondisi' => 'required',
-                'jenis' => 'required',
-                'status' => 'required',
-                'kategori' => 'required',
-                'no_reg' => 'required',
-                'keterangan' => 'required',
+                'nama' => 'required',
             ], [
                 'satuan_id.required' => 'Satuan wajib diisi!',
                 'satuan_id.numeric' => 'Format Satuan salah!',
-                // 'nama.required' => 'Nama material wajib diisi!',
-                'kondisi.required' => 'Kondisi wajib diisi!',
-                'jenis.required' => 'Jenis wajib diisi!',
-                'status.required' => 'Status wajib diisi!',
-                'kategori.required' => 'Kategori wajib diisi!',
-                'no_reg.required' => 'No reg wajib diisi!',
-                'keterangan.required' => 'Keterangan wajib diisi!',
+                'nama.required' => 'Nama material wajib diisi!',
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
@@ -188,12 +171,13 @@ class MaterialController extends Controller
 
             // Update the material data
             $material->satuan_id = $request->input('satuan_id');
-            // $material->nama = $request->input('nama');
+            $material->nama = $request->input('nama');
             $material->kondisi = $request->input('kondisi');
             $material->jenis = $request->input('jenis');
             $material->kategori = $request->input('kategori');
             $material->status = $request->input('status');
             $material->no_reg = $request->input('no_reg');
+            $material->jumlah = $request->input('jumlah');
             $material->keterangan = $request->input('keterangan');
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
