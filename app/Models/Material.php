@@ -12,17 +12,7 @@ class Material extends Model
 
     protected $table = 'material';
 
-    protected $fillable = [
-        'satuan_id',
-        'nama',
-        'kategori',
-        'kondisi',
-        'jenis',
-        'file',
-        'status',
-        'no_reg',
-        'keterangan',
-    ];
+    protected $guarded = ['id'];
 
     public function satuan()
     {

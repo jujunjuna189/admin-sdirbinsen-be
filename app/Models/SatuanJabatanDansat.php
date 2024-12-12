@@ -11,10 +11,5 @@ class SatuanJabatanDansat extends Model
 
     protected $table = 'satuan_jabatan_dansat';
 
-    protected $fillable = [
-        'satuan_id',
-        'title',
-        'gambar',
-        'deskripsi',
-    ];
+    protected $guarded = ['id'];
 }

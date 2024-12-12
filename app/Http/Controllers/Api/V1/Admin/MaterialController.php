@@ -104,6 +104,7 @@ class MaterialController extends Controller
             $material->status = $request->input('status');
             $material->no_reg = $request->input('no_reg');
             $material->jumlah = $request->input('jumlah');
+            $material->lokasi = $request->input('lokasi');
             $material->keterangan = $request->input('keterangan');
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
@@ -178,6 +179,7 @@ class MaterialController extends Controller
             $material->status = $request->input('status');
             $material->no_reg = $request->input('no_reg');
             $material->jumlah = $request->input('jumlah');
+            $material->lokasi = $request->input('lokasi');
             $material->keterangan = $request->input('keterangan');
             if ($request->hasFile('file')) {
                 $file = $request->file('file');

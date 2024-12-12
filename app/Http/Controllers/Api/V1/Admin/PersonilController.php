@@ -126,7 +126,7 @@ class PersonilController extends Controller
                 'jabatan' => 'nullable',
                 'pangkat' => 'nullable',
                 'korps' => 'nullable',
-                'sumber_pa' => 'nullable',
+                'sumber_pa' => 'required',
                 'psi' => 'nullable',
                 'status' => 'nullable',
 
@@ -289,7 +289,7 @@ class PersonilController extends Controller
                 'jabatan' => 'nullable',
                 'pangkat' => 'nullable',
                 'korps' => 'nullable',
-                'sumber_pa' => 'nullable',
+                'sumber_pa' => 'required',
                 'psi' => 'nullable',
                 'status' => 'nullable',
 

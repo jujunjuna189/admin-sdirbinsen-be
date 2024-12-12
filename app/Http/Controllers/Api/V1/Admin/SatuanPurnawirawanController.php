@@ -86,8 +86,14 @@ class SatuanPurnawirawanController extends Controller
             $satuan = new SatuanPurnawirawan();
             $satuan->satuan_id = $request->input('satuan_id');
             $satuan->nama = $request->input('nama');
+            $satuan->tempat_lahir = $request->input('tempat_lahir');
+            $satuan->tanggal_lahir = $request->input('tanggal_lahir');
+            $satuan->agama = $request->input('agama');
+            $satuan->suku_bangsa = $request->input('suku_bangsa');
             $satuan->pangkat = $request->input('pangkat');
             $satuan->jabatan = $request->input('jabatan');
+            $satuan->date_from = $request->input('date_from');
+            $satuan->date_to = $request->input('date_to');
             $satuan->leting = $request->input('leting');
             $satuan->no_hp = $request->input('no_hp');
             $satuan->alamat = $request->input('alamat');
@@ -137,8 +143,14 @@ class SatuanPurnawirawanController extends Controller
 
             $satuan->satuan_id = $request->input('satuan_id');
             $satuan->nama = $request->input('nama');
+            $satuan->tempat_lahir = $request->input('tempat_lahir');
+            $satuan->tanggal_lahir = $request->input('tanggal_lahir');
+            $satuan->agama = $request->input('agama');
+            $satuan->suku_bangsa = $request->input('suku_bangsa');
             $satuan->pangkat = $request->input('pangkat');
             $satuan->jabatan = $request->input('jabatan');
+            $satuan->date_from = $request->input('date_from');
+            $satuan->date_to = $request->input('date_to');
             $satuan->leting = $request->input('leting');
             $satuan->no_hp = $request->input('no_hp');
             $satuan->alamat = $request->input('alamat');
