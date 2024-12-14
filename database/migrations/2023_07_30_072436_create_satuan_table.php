@@ -17,9 +17,9 @@ return new class extends Migration
             $table->text('logo')->nullable();
             $table->text('sejarah')->nullable();
             $table->string('sejarah_url')->nullable();
-            $table->string('hymne')->nullable();
+            $table->text('hymne')->nullable();
             $table->string('hymne_url')->nullable();
-            $table->string('mars')->nullable();
+            $table->text('mars')->nullable();
             $table->string('mars_url')->nullable();
             $table->string('struktur_organisasi')->nullable();
             $table->string('struktur_organisasi_url')->nullable();

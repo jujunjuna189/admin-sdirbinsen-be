@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date('tanggal_lahir')->nullable();
             $table->string('agama')->nullable();
             $table->string('suku_bangsa')->nullable();
-            $table->string('tempat_lahir')->nullable();
             $table->string('pangkat')->nullable();
             $table->string('jabatan')->nullable();
             $table->date('date_from')->nullable();

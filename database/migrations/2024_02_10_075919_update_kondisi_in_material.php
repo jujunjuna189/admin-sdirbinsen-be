@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('kondisi')->nullable()->change();
             $table->string('jenis')->nullable();
             $table->integer('jumlah')->nullable();
+            $table->string('lokasi')->nullable();
         });
     }
 
