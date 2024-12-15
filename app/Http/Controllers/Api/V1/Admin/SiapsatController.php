@@ -32,7 +32,11 @@ class SiapsatController extends Controller
             // Apply filtering
             $satuan_id = $request->input('satuan_id');
             if (!empty($satuan_id)) {
-                $query->where('satuan_id', $satuan_id);
+                if ($satuan_id == 'empty') {
+                    $query->whereNull('satuan_id');
+                } else {
+                    $query->where('satuan_id', $satuan_id);
+                }
             }
 
             // Apply filtering
@@ -86,11 +90,9 @@ class SiapsatController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'category' => 'required',
-                'satuan_id' => 'required',
                 'title' => 'required',
             ], [
                 'category.required' => 'Kategori wajib diisi!',
-                'satuan_id.required' => 'Satuan wajib diisi!',
                 'title.required' => 'Judul wajib diisi!',
             ]);
             if ($validator->fails()) {
@@ -129,11 +131,9 @@ class SiapsatController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'category' => 'required',
-                'satuan_id' => 'required',
                 'title' => 'required',
             ], [
                 'category.required' => 'Kategori wajib diisi!',
-                'satuan_id.required' => 'Satuan wajib diisi!',
                 'title.required' => 'Judul wajib diisi!',
             ]);
             if ($validator->fails()) {
