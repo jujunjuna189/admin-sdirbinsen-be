@@ -25,6 +25,7 @@
     use App\Http\Controllers\Api\V1\Admin\PersonilController;
     use App\Http\Controllers\Api\V1\Admin\PetaJabatanController;
     use App\Http\Controllers\Api\V1\Admin\PrestasiController;
+    use App\Http\Controllers\Api\V1\Admin\ReferensiController;
     use App\Http\Controllers\Api\V1\Admin\RiwayatJabatanController;
     use App\Http\Controllers\Api\V1\Admin\RiwayatKeluargaAnakController;
     use App\Http\Controllers\Api\V1\Admin\RiwayatKeluargaController;
@@ -363,6 +364,12 @@
             Route::post('learning', [LearningController::class, 'store']);
             Route::post('learning/{id}', [LearningController::class, 'update']);
             Route::delete('learning/{id}', [LearningController::class, 'destroy']);
+
+            // referensi
+            Route::get('referensi', [ReferensiController::class, 'index']);
+            Route::post('referensi', [ReferensiController::class, 'store']);
+            Route::post('referensi/{id}', [ReferensiController::class, 'update']);
+            Route::delete('referensi/{id}', [ReferensiController::class, 'destroy']);
 
             Route::get('chat', [ChatController::class, 'index']);
             Route::post('chat', [ChatController::class, 'store']);

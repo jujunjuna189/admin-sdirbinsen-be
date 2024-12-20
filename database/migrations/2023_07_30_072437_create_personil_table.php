@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->date('tanggal_lahir')->nullable();
             $table->string('tempat_lahir')->nullable();
-            $table->enum('agama', ['Islam', 'Protestan', 'Katolik', 'Hindu', 'Buddha', 'Khonghucu'])->nullable();
+            $table->Srting('agama')->nullable();
             $table->string('suku_bangsa')->nullable();
             $table->enum('golongan_darah', ['A', 'B', 'AB', 'O'])->nullable();
 
