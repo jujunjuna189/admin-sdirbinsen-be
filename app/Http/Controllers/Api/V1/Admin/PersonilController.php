@@ -64,7 +64,7 @@ class PersonilController extends Controller
             // Apply filtering by tmt_tni
             $tmt_tni = $request->input('tmt_tni');
             if (!empty($tmt_tni)) {
-                $query->whereDate('tmt_tni', $tmt_tni);
+                $query->whereYear('tmt_tni', $tmt_tni);
             }
 
             // Apply filtering by agama

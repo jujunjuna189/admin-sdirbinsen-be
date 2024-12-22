@@ -52,7 +52,7 @@ class PetaJabatanController extends Controller
                 $query->whereDate('created_at', $created_at);
             }
 
-            $query->orderBy('order_number', 'desc');
+            $query->orderBy('order_number', 'asc');
 
             // Paginate the results
             $perPage = $request->input('per_page', 100);
