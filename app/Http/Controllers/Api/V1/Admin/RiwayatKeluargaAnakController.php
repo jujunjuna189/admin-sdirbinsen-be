@@ -73,8 +73,8 @@ class RiwayatKeluargaAnakController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'riwayat_keluarga_id' => 'required|numeric',
-                'nama' => 'required',
-                'tanggal_lahir' => 'required:date',
+                'nama' => 'nullable',
+                'tanggal_lahir' => 'nullable:date',
             ], [
                 'riwayat_keluarga_id.required' => 'Riwayat keluarga id wajib diisi!',
                 'riwayat_keluarga_id.numeric' => 'Format riwayat keluarga id salah!',
@@ -121,8 +121,8 @@ class RiwayatKeluargaAnakController extends Controller
             // Validate the updated data
             $validator = Validator::make($request->all(), [
                 'riwayat_keluarga_id' => 'required|numeric',
-                'nama' => 'required',
-                'tanggal_lahir' => 'required:date',
+                'nama' => 'nullable',
+                'tanggal_lahir' => 'nullable:date',
             ], [
                 'riwayat_keluarga_id.required' => 'Riwayat keluarga id wajib diisi!',
                 'riwayat_keluarga_id.numeric' => 'Format riwayat keluarga id salah!',

@@ -29,6 +29,18 @@ class SatuanPrestasiController extends Controller
                 $query->where('satuan_id', $satuan_id);
             }
 
+            // Apply filtering by satuan_id
+            $bidang = $request->input('bidang');
+            if (!empty($bidang)) {
+                $query->where('bidang', $bidang);
+            }
+
+            // Apply filtering by satuan_id
+            $kategori = $request->input('kategori');
+            if (!empty($kategori)) {
+                $query->where('kategori', $kategori);
+            }
+
             // Apply filtering by created_at
             $created_at = $request->input('created_at');
             if (!empty($created_at)) {
@@ -74,10 +86,12 @@ class SatuanPrestasiController extends Controller
                 'satuan_id' => 'required|exists:satuan,id',
                 'title' => 'required',
                 'gambar' => 'required|file:max:5120',
+                'bidang' => 'required',
                 'deskripsi' => 'nullable'
             ], [
                 'satuan_id.required' => "Satuan id harus diisi",
                 'title.required' => "title wajib diisi!",
+                'bidang.required' => "Bidang prestasi wajib diisi!",
                 'gambar.required' => "Gambar wajib diupload!",
             ]);
             if ($validator->fails()) {
@@ -91,6 +105,8 @@ class SatuanPrestasiController extends Controller
             $satuan->deskripsi = $request->input('deskripsi');
             $satuan->nama = $request->input('nama');
             $satuan->pangkat = $request->input('pangkat');
+            $satuan->bidang = $request->input('bidang');
+            $satuan->kategori = $request->input('kategori');
 
             if ($request->hasFile('gambar')) {
                 $file = $request->file('gambar');
@@ -125,10 +141,12 @@ class SatuanPrestasiController extends Controller
                 'satuan_id' => 'required|exists:satuan,id',
                 'title' => 'required',
                 'gambar' => 'nullable|file:max:5120',
+                'bidang' => 'required',
                 'deskripsi' => 'nullable'
             ], [
                 'satuan_id.required' => "Satuan id harus diisi",
                 'title.required' => "title wajib diisi!",
+                'bidang.required' => "Bidang prestasi wajib diisi!",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
@@ -140,6 +158,8 @@ class SatuanPrestasiController extends Controller
             $satuan->deskripsi = $request->input('deskripsi');
             $satuan->nama = $request->input('nama');
             $satuan->pangkat = $request->input('pangkat');
+            $satuan->bidang = $request->input('bidang');
+            $satuan->kategori = $request->input('kategori');
 
             if ($request->hasFile('gambar')) {
                 $file = $request->file('gambar');

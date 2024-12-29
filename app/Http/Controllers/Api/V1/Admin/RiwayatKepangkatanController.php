@@ -69,7 +69,7 @@ class RiwayatKepangkatanController extends Controller
                 'personil_id' => 'required|numeric',
                 'pangkat' => 'required',
                 'tmt' => 'required:date',
-                'nomor_kep_skep' => 'required',
+                'nomor_kep_skep' => 'nullable',
             ],[
                 'personil_id.required'=>"Personil ID wajib diisi!",
                 'personil_id.numeric'=>"Format Personil ID salah!",
@@ -122,7 +122,7 @@ class RiwayatKepangkatanController extends Controller
                 'personil_id' => 'required|numeric',
                 'pangkat' => 'required',
                 'tmt' => 'required:date',
-                'nomor_kep_skep' => 'required',
+                'nomor_kep_skep' => 'nullable',
             ],[
                 'personil_id.required'=>"Personil ID wajib diisi!",
                 'personil_id.numeric'=>"Format Personil ID salah!",

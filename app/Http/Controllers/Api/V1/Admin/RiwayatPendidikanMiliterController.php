@@ -66,8 +66,8 @@ class RiwayatPendidikanMiliterController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|numeric',
-                'dikma_diktuk_dibangun' => 'required',
-                'tahun' => 'required|integer|digits:4',
+                'dikma_diktuk_dibangun' => 'nullable',
+                'tahun' => 'nullable|integer|digits:4',
             ], [
                 'personil_id.required' => 'Personil ID wajib diisi!',
                 'personil_id.numeric' => 'Format Personil ID salah!',
@@ -117,8 +117,8 @@ class RiwayatPendidikanMiliterController extends Controller
             // Validate the updated data
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|numeric',
-                'dikma_diktuk_dibangun' => 'required',
-                'tahun' => 'required|integer|digits:4',
+                'dikma_diktuk_dibangun' => 'nullable',
+                'tahun' => 'nullable|integer|digits:4',
             ],[
                 'personil_id.required' => 'Personil ID wajib diisi!',
                 'personil_id.numeric' => 'Format Personil ID salah!',

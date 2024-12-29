@@ -87,6 +87,7 @@ class SatuanJabatanDansatController extends Controller
             $satuan = new SatuanJabatanDansat();
             $satuan->satuan_id = $request->input('satuan_id');
             $satuan->nama = $request->input('nama');
+            $satuan->star = $request->input('star');
             $satuan->date_from = $request->input('date_from');
             $satuan->date_to = $request->input('date_to');
             $satuan->deskripsi = $request->input('deskripsi');
@@ -135,6 +136,7 @@ class SatuanJabatanDansatController extends Controller
 
             $satuan->satuan_id = $request->input('satuan_id');
             $satuan->nama = $request->input('nama');
+            $satuan->star = $request->input('star');
             $satuan->date_from = $request->input('date_from');
             $satuan->date_to = $request->input('date_to');
             $satuan->deskripsi = $request->input('deskripsi');

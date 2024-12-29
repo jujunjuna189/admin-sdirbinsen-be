@@ -67,9 +67,9 @@ class RiwayatPendidikanUmumController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|numeric',
-                'jenis_pendidikan' => 'required',
-                'tahun' => 'required|integer|digits:4',
-                'nama_pendidikan' => 'required',
+                'jenis_pendidikan' => 'nullable',
+                'tahun' => 'nullable|integer|digits:4',
+                'nama_pendidikan' => 'nullable',
             ], [
                 'personil_id.required' => "Personil ID wajib diisi!",
                 'personil_id.numeric' => "Format Personil ID salah!",
@@ -122,9 +122,9 @@ class RiwayatPendidikanUmumController extends Controller
             // Validate the updated data
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|numeric',
-                'jenis_pendidikan' => 'required',
-                'tahun' => 'required|integer|digits:4',
-                'nama_pendidikan' => 'required',
+                'jenis_pendidikan' => 'nullable',
+                'tahun' => 'nullable|integer|digits:4',
+                'nama_pendidikan' => 'nullable',
             ], [
                 'personil_id.required' => "Personil ID wajib diisi!",
                 'personil_id.numeric' => "Format Personil ID salah!",

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('satuan_id')->unsigned();
             $table->string('nama');
+            $table->integer('star')->default(0);
             $table->string('gambar')->nullable();
             $table->date('date_from')->nullable();
             $table->date('date_to')->nullable();

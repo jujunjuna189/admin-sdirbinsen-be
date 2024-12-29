@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('deskripsi')->nullable();
             $table->string('nama')->nullable();
             $table->string('pangkat')->nullable();
+            $table->string('bidang')->nullable();
+            $table->string('kategori')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

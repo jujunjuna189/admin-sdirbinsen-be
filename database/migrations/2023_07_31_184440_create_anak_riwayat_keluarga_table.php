@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('anak_riwayat_keluarga', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('riwayat_keluarga_id')->unsigned();
-            $table->string('nama');
-            $table->date('tanggal_lahir');
+            $table->string('nama')->nullable();
+            $table->date('tanggal_lahir')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
