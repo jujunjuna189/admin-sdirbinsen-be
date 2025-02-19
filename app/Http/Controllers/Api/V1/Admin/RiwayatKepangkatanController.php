@@ -20,7 +20,7 @@ class RiwayatKepangkatanController extends Controller
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
                     $q->where('pangkat', 'like', "%$search%")
-                    ->orWhere('nomor_kep_skep', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
+                        ->orWhere('nomor_kep_skep', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
                 });
             }
 
@@ -48,14 +48,14 @@ class RiwayatKepangkatanController extends Controller
     public function show($id_personil, $id_pangkat)
     {
         try {
-            $riwayat_kepangkatan = RiwayatKepangkatan::where('id',$id_pangkat)->first();
+            $riwayat_kepangkatan = RiwayatKepangkatan::where('id', $id_pangkat)->first();
             if (!$riwayat_kepangkatan) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'riwayat_kepangkatan' => $riwayat_kepangkatan
             ];
-            return responseJson('Show Riwayat Kepangkatan', 200, 'Success',$data);
+            return responseJson('Show Riwayat Kepangkatan', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -70,13 +70,13 @@ class RiwayatKepangkatanController extends Controller
                 'pangkat' => 'required',
                 'tmt' => 'required:date',
                 'nomor_kep_skep' => 'nullable',
-            ],[
-                'personil_id.required'=>"Personil ID wajib diisi!",
-                'personil_id.numeric'=>"Format Personil ID salah!",
-                'pangkat.required'=>"Pangkat wajib diisi!",
-                'tmt.required'=>"TMT wajib diisi!",
-                'tmt.date'=>"Format TMT salah!",
-                'nomor_kep_skep.required'=>"Nomor Keputusan wajib diisi!",
+            ], [
+                'personil_id.required' => "Personil ID wajib diisi!",
+                'personil_id.numeric' => "Format Personil ID salah!",
+                'pangkat.required' => "Pangkat wajib diisi!",
+                'tmt.required' => "TMT wajib diisi!",
+                'tmt.date' => "Format TMT salah!",
+                'nomor_kep_skep.required' => "Nomor Keputusan wajib diisi!",
             ]);
 
             if ($validator->fails()) {
@@ -85,7 +85,7 @@ class RiwayatKepangkatanController extends Controller
 
             // CHECK PERSONNEL
             $checkPersonil = Personil::find($request->personil_id);
-            if(!$checkPersonil){
+            if (!$checkPersonil) {
                 return responseJson("Personil not found", 404, "Error");
             }
 
@@ -99,7 +99,7 @@ class RiwayatKepangkatanController extends Controller
             $pangkat->save();
 
             $data = [
-                'pangkat'=> $pangkat
+                'pangkat' => $pangkat
             ];
 
             return responseJson('Add riwayat kepangkatan', 201, 'Success', $data);
@@ -109,10 +109,10 @@ class RiwayatKepangkatanController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_personil, $id_pangkat)
     {
         try {
-            $pangkat = RiwayatKepangkatan::find($id);
+            $pangkat = RiwayatKepangkatan::find($id_pangkat);
             if (!$pangkat) {
                 return responseJson('Data not found', 404, 'Error');
             }
@@ -123,13 +123,13 @@ class RiwayatKepangkatanController extends Controller
                 'pangkat' => 'required',
                 'tmt' => 'required:date',
                 'nomor_kep_skep' => 'nullable',
-            ],[
-                'personil_id.required'=>"Personil ID wajib diisi!",
-                'personil_id.numeric'=>"Format Personil ID salah!",
-                'pangkat.required'=>"Pangkat wajib diisi!",
-                'tmt.required'=>"TMT wajib diisi!",
-                'tmt.date'=>"Format TMT salah!",
-                'nomor_kep_skep.required'=>"Nomor Keputusan wajib diisi!",
+            ], [
+                'personil_id.required' => "Personil ID wajib diisi!",
+                'personil_id.numeric' => "Format Personil ID salah!",
+                'pangkat.required' => "Pangkat wajib diisi!",
+                'tmt.required' => "TMT wajib diisi!",
+                'tmt.date' => "Format TMT salah!",
+                'nomor_kep_skep.required' => "Nomor Keputusan wajib diisi!",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
@@ -137,7 +137,7 @@ class RiwayatKepangkatanController extends Controller
 
             // CHECK PERSONNEL
             $checkPersonil = Personil::find($request->personil_id);
-            if(!$checkPersonil){
+            if (!$checkPersonil) {
                 return responseJson("Personil not found", 404, "Error");
             }
 
@@ -150,7 +150,7 @@ class RiwayatKepangkatanController extends Controller
             $pangkat->save();
 
             $data = [
-                'pangkat'=>$pangkat
+                'pangkat' => $pangkat
             ];
 
             return responseJson('Update riwayat kepangkatan', 200, 'Success', $data);
@@ -164,11 +164,11 @@ class RiwayatKepangkatanController extends Controller
     {
         try {
             $pangkat = RiwayatKepangkatan::find($id_pangkat);
-            if (!$pangkat){
+            if (!$pangkat) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
-                'pangkat'=>$pangkat
+                'pangkat' => $pangkat
             ];
             $pangkat->delete();
             return responseJson('Delete riwayat kepangkatan', 200, 'Success', $data);

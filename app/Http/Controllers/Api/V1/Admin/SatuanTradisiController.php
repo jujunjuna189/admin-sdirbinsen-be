@@ -51,7 +51,6 @@ class SatuanTradisiController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'satuan_id' => 'required',
-                'video' => 'required',
             ], [
                 'satuan_id.required' => "Satuan wajib diisi!",
                 'video.required' => "Tradisi wajib diisi!",
@@ -70,6 +69,14 @@ class SatuanTradisiController extends Controller
                 $path = 'satuan/satuan_tradisi';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $satuan_tradisi->video = Storage::disk('public')->url($path . '/' . $newFilename);;
+            }
+
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $newFilename = "file" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                $path = 'satuan/satuan_tradisi';
+                Storage::disk('public')->putFileAs($path, $file, $newFilename);
+                $satuan_tradisi->file = Storage::disk('public')->url($path . '/' . $newFilename);;
             }
 
             $satuan_tradisi->save();
@@ -111,6 +118,14 @@ class SatuanTradisiController extends Controller
                 $path = 'satuan/satuan_tradisi';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $satuan_tradisi->video = Storage::disk('public')->url($path . '/' . $newFilename);;
+            }
+
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $newFilename = "file" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                $path = 'satuan/satuan_tradisi';
+                Storage::disk('public')->putFileAs($path, $file, $newFilename);
+                $satuan_tradisi->file = Storage::disk('public')->url($path . '/' . $newFilename);;
             }
 
             $satuan_tradisi->save();
