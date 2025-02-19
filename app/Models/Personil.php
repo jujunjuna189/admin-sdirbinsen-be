@@ -59,7 +59,7 @@ class Personil extends Model
         // Check if the value is not empty
         if (!empty($value)) {
             // Prefix the hostname/storage/ to the picture value
-            return env('APP_URL') . '/storage/' . $value;
+            return url('') . '/storage/' . $value;
         }
 
         // If the value is empty, return a default image or whatever you prefer

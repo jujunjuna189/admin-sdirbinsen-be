@@ -55,7 +55,7 @@ class PetaJabatanController extends Controller
             $query->orderBy('order_number', 'asc');
 
             // Paginate the results
-            $perPage = $request->input('per_page', 100);
+            $perPage = $request->input('per_page', 1000);
             $peta_jabatan = $query->paginate($perPage);
 
             $resultPermit = collect($peta_jabatan->items())->groupBy('golongan');

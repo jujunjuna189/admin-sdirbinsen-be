@@ -36,7 +36,7 @@ class SatuanJabatanDansatController extends Controller
             }
 
             // Paginate the results
-            $perPage = $request->input('per_page', 100);
+            $perPage = $request->input('per_page', 300);
             $satuan = $query->paginate($perPage);
 
             $data = [
@@ -123,7 +123,7 @@ class SatuanJabatanDansatController extends Controller
             // Validate the updated data
             $validator = Validator::make($request->all(), [
                 'satuan_id' => 'required|exists:satuan,id',
-                'nama' => 'required',
+                'nama' => 'nullable',
                 'gambar' => 'nullable|file:max:5120',
                 'deskripsi' => 'nullable'
             ], [

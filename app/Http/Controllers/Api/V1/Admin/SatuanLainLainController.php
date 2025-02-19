@@ -72,8 +72,8 @@ class SatuanLainLainController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'satuan_id' => 'required|exists:satuan,id',
-                'nama' => 'required',
-                'gambar' => 'required|file:max:5120',
+                'nama' => 'nullable',
+                'gambar' => 'nullable|file:max:5120',
                 'deskripsi' => 'nullable'
             ], [
                 'satuan_id.required' => "Satuan id harus diisi",
