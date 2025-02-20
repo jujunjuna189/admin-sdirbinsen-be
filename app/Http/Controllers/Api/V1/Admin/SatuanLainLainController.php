@@ -97,6 +97,14 @@ class SatuanLainLainController extends Controller
                 $satuan->gambar = Storage::disk('public')->url($path . '/' . $newFilename);;
             }
 
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $newFilename = "file" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                $path = 'satuan_lain_lain/file';
+                Storage::disk('public')->putFileAs($path, $file, $newFilename);
+                $satuan->file = Storage::disk('public')->url($path . '/' . $newFilename);;
+            }
+
             $satuan->save();
 
             $data = [
@@ -141,6 +149,14 @@ class SatuanLainLainController extends Controller
                 $path = 'satuan_lain_lain/gambar';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $satuan->gambar = Storage::disk('public')->url($path . '/' . $newFilename);
+            }
+
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $newFilename = "file" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                $path = 'satuan_lain_lain/file';
+                Storage::disk('public')->putFileAs($path, $file, $newFilename);
+                $satuan->file = Storage::disk('public')->url($path . '/' . $newFilename);;
             }
 
             $satuan->save();
