@@ -21,7 +21,7 @@ class RiwayatJabatanController extends Controller
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
                     $q->where('nama', 'like', "%$search%")
-                    ->orWhere('category', 'like', "%$search%"); // Assuming 'category' is a column in the riwayat_jabatan table
+                        ->orWhere('category', 'like', "%$search%"); // Assuming 'category' is a column in the riwayat_jabatan table
                 });
             }
 
@@ -49,14 +49,14 @@ class RiwayatJabatanController extends Controller
     public function show($id_personil, $id_jabatan)
     {
         try {
-            $riwayat_jabatan = RiwayatJabatan::where('id',$id_jabatan)->first();
+            $riwayat_jabatan = RiwayatJabatan::where('id', $id_jabatan)->first();
             if (!$riwayat_jabatan) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'riwayat_jabatan' => $riwayat_jabatan
             ];
-            return responseJson('Show Riwayat Jabatan', 200, 'Success',$data);
+            return responseJson('Show Riwayat Jabatan', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -84,7 +84,7 @@ class RiwayatJabatanController extends Controller
 
             // CHECK PERSONNEL
             $checkPersonil = Personil::find($request->personil_id);
-            if(!$checkPersonil){
+            if (!$checkPersonil) {
                 return responseJson("Personil not found", 404, "Error");
             }
 
@@ -94,6 +94,7 @@ class RiwayatJabatanController extends Controller
             $riwayat_jabatan->personil_id = $request->input('personil_id');
             $riwayat_jabatan->jabatan = $request->input('jabatan');
             $riwayat_jabatan->tmt = $request->input('tmt');
+            $riwayat_jabatan->nomor_kep_skep = $request->input('nomor_kep_skep');
 
             if ($request->hasFile('file')) {
                 $picture = $request->file('file');
@@ -105,7 +106,7 @@ class RiwayatJabatanController extends Controller
             $riwayat_jabatan->save();
 
             $data = [
-                'riwayat_jabatan'=> [
+                'riwayat_jabatan' => [
                     'id' => $riwayat_jabatan->id,
                     'jabatan' => $riwayat_jabatan->jabatan,
                     'tmt' => $riwayat_jabatan->tmt,
@@ -132,7 +133,7 @@ class RiwayatJabatanController extends Controller
                 'personil_id' => 'required|integer',
                 'jabatan' => 'required',
                 'tmt' => 'required|date',
-            ],[
+            ], [
                 'personil_id.required' => 'Personil ID wajib diisi!',
                 'personil_id.integer' => 'Format Personil ID salah!',
                 'jabatan.required' => 'Nama jabatan wajib diisi!',
@@ -145,18 +146,19 @@ class RiwayatJabatanController extends Controller
 
             // CHECK PERSONNEL
             $checkPersonil = Personil::find($request->personil_id);
-            if(!$checkPersonil){
+            if (!$checkPersonil) {
                 return responseJson("Personil not found", 404, "Error");
             }
 
             // Update the riwayat_jabatan data
             $riwayat_jabatan->jabatan = $request->input('jabatan');
             $riwayat_jabatan->tmt = $request->input('tmt');
+            $riwayat_jabatan->nomor_kep_skep = $request->input('nomor_kep_skep');
 
             $riwayat_jabatan->save();
 
             $data = [
-                'riwayat_jabatan'=>$riwayat_jabatan
+                'riwayat_jabatan' => $riwayat_jabatan
             ];
 
             return responseJson('Update riwayat jabatan', 200, 'Success', $data);
@@ -174,7 +176,7 @@ class RiwayatJabatanController extends Controller
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
-                'riwayat_jabatan'=>$riwayat_jabatan
+                'riwayat_jabatan' => $riwayat_jabatan
             ];
             $riwayat_jabatan->delete();
             return responseJson('Delete riwayat jabatan', 200, 'Success', $data);
@@ -183,5 +185,4 @@ class RiwayatJabatanController extends Controller
             return responseJson($errorMessage, 500, 'Error');
         }
     }
-
 }

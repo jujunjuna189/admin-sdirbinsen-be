@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('pendidikan_militer', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('personil_id')->unsigned();
-            $table->string('dikma_diktuk_dibangun');
-            $table->integer('tahun');
+            $table->string('type');
+            $table->string('title')->nullable();
+            $table->integer('tahun')->nullable();
             $table->string('prestasi')->nullable();
             $table->timestamps();
             $table->softDeletes();

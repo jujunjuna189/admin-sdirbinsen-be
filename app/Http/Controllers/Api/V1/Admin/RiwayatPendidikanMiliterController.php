@@ -19,7 +19,7 @@ class RiwayatPendidikanMiliterController extends Controller
             $search = $request->input('search');
             if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
-                    $q->where('dikma_diktuk_dibangun', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
+                    $q->where('title', 'like', "%$search%"); // Assuming 'category' is a column in the Material table
                 });
             }
 
@@ -47,14 +47,14 @@ class RiwayatPendidikanMiliterController extends Controller
     public function show($id_personil, $id_pendidikan_militer)
     {
         try {
-            $pendidikan_militer = PendidikanMiliter::where('id',$id_pendidikan_militer)->first();
+            $pendidikan_militer = PendidikanMiliter::where('id', $id_pendidikan_militer)->first();
             if (!$pendidikan_militer) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'pendidikan_militer' => $pendidikan_militer
             ];
-            return responseJson('Show Pendidikan Militer', 200, 'Success',$data);
+            return responseJson('Show Pendidikan Militer', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -66,12 +66,14 @@ class RiwayatPendidikanMiliterController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|numeric',
-                'dikma_diktuk_dibangun' => 'nullable',
+                'type' => 'required',
+                'title' => 'nullable',
                 'tahun' => 'nullable|integer|digits:4',
             ], [
                 'personil_id.required' => 'Personil ID wajib diisi!',
                 'personil_id.numeric' => 'Format Personil ID salah!',
-                'dikma_diktuk_dibangun.required' => 'Nama Diklat/Sekolah wajib diisi!',
+                'type.required' => 'Tipe wajib diisi!',
+                'title.required' => 'Nama Diklat/Sekolah wajib diisi!',
                 'tahun.required' => 'Tahun Lulus wajib diisi!',
                 'tahun.digits' => 'Format Tahun Lulus salah!',
             ]);
@@ -82,21 +84,22 @@ class RiwayatPendidikanMiliterController extends Controller
 
             // CHECK PERSONNEL
             $checkPersonil = Personil::find($request->personil_id);
-            if(!$checkPersonil){
+            if (!$checkPersonil) {
                 return responseJson("Personil not found", 404, "Error");
             }
 
             $pendidikan_militer = new PendidikanMiliter();
 
             $pendidikan_militer->personil_id = $request->input('personil_id');
-            $pendidikan_militer->dikma_diktuk_dibangun = $request->input('dikma_diktuk_dibangun');
+            $pendidikan_militer->type = $request->input('type');
+            $pendidikan_militer->title = $request->input('title');
             $pendidikan_militer->tahun = $request->input('tahun');
             $pendidikan_militer->prestasi = $request->input('prestasi');
 
             $pendidikan_militer->save();
 
             $data = [
-                'pendidikan_militer'=> $pendidikan_militer
+                'pendidikan_militer' => $pendidikan_militer
             ];
 
             return responseJson('Add riwayat pendidikan militer', 201, 'Success', $data);
@@ -117,12 +120,14 @@ class RiwayatPendidikanMiliterController extends Controller
             // Validate the updated data
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|numeric',
-                'dikma_diktuk_dibangun' => 'nullable',
+                'type' => 'required',
+                'title' => 'nullable',
                 'tahun' => 'nullable|integer|digits:4',
-            ],[
+            ], [
                 'personil_id.required' => 'Personil ID wajib diisi!',
                 'personil_id.numeric' => 'Format Personil ID salah!',
-                'dikma_diktuk_dibangun.required' => 'Nama Diklat/Sekolah wajib diisi!',
+                'type.required' => 'Tipe wajib diisi!',
+                'title.required' => 'Nama Sekolah wajib diisi!',
                 'tahun.required' => 'Tahun Lulus wajib diisi!',
                 'tahun.digits' => 'Format Tahun Lulus salah!',
             ]);
@@ -132,20 +137,21 @@ class RiwayatPendidikanMiliterController extends Controller
 
             // CHECK PERSONNEL
             $checkPersonil = Personil::find($request->personil_id);
-            if(!$checkPersonil){
+            if (!$checkPersonil) {
                 return responseJson("Personil not found", 404, "Error");
             }
 
             // Update data
             $pendidikan_militer->personil_id = $request->input('personil_id');
-            $pendidikan_militer->dikma_diktuk_dibangun = $request->input('dikma_diktuk_dibangun');
+            $pendidikan_militer->type = $request->input('type');
+            $pendidikan_militer->title = $request->input('title');
             $pendidikan_militer->tahun = $request->input('tahun');
             $pendidikan_militer->prestasi = $request->input('prestasi');
 
             $pendidikan_militer->save();
 
             $data = [
-                'pendidikan_militer'=>$pendidikan_militer
+                'pendidikan_militer' => $pendidikan_militer
             ];
 
             return responseJson('Update riwayat pendidikan militer', 200, 'Success', $data);
@@ -163,7 +169,7 @@ class RiwayatPendidikanMiliterController extends Controller
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
-                'pendidikan_militer'=>$pendidikan_militer
+                'pendidikan_militer' => $pendidikan_militer
             ];
             $pendidikan_militer->delete();
             return responseJson('Delete riwayat pendidikan militer', 200, 'Success', $data);
