@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->boolean('kondisi');
             $table->text('file')->nullable();
+            $table->text('document_file')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
