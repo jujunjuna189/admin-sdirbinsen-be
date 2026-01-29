@@ -12,7 +12,7 @@ class KompersSatjarController extends Controller
     public function index(Request $request)
     {
         try {
-            $query = KompersSatjar::query();
+            $query = KompersSatjar::query()->with('satuan');
 
             // Apply search
             $search = $request->input('search');
@@ -25,6 +25,11 @@ class KompersSatjarController extends Controller
             $id = $request->input('id');
             if (!empty($id)) {
                 $query->where('id', $id);
+            }
+
+            $satuan_id = $request->input('satuan_id');
+            if (!empty($satuan_id)) {
+                $query->where('satuan_id', $satuan_id);
             }
 
             $kompers_satjar_categorys_id = $request->input('kompers_satjar_categorys_id');
@@ -72,6 +77,7 @@ class KompersSatjarController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
+                'satuan_id' => 'required',
                 'kompers_satjar_categorys_id' => 'required',
                 'category' => 'required',
                 'sub_category' => 'required',
@@ -86,6 +92,7 @@ class KompersSatjarController extends Controller
             }
 
             $kompers_satjar = new KompersSatjar;
+            $kompers_satjar->satuan_id = $request->input('satuan_id');
             $kompers_satjar->kompers_satjar_categorys_id = $request->input('kompers_satjar_categorys_id');
             $kompers_satjar->category = $request->input('category');
             $kompers_satjar->sub_category = $request->input('sub_category');
@@ -110,6 +117,7 @@ class KompersSatjarController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
+                'satuan_id' => 'required',
                 'kompers_satjar_categorys_id' => 'required',
                 'category' => 'required',
                 'sub_category' => 'required',
@@ -124,6 +132,7 @@ class KompersSatjarController extends Controller
             }
 
             $kompers_satjar = KompersSatjar::find($id);
+            $kompers_satjar->satuan_id = $request->input('satuan_id');
             $kompers_satjar->kompers_satjar_categorys_id = $request->input('kompers_satjar_categorys_id');
             $kompers_satjar->category = $request->input('category');
             $kompers_satjar->sub_category = $request->input('sub_category');
