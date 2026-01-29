@@ -34,6 +34,11 @@ class SatuanController extends Controller
                 $query->where('id', $id);
             }
 
+            $visibility = $request->input('visibility');
+            if (!empty($visibility)) {
+                $query->where('visibility', $visibility);
+            }
+
             // Apply filtering by created_at
             $created_at = $request->input('created_at');
             if (!empty($created_at)) {
@@ -123,7 +128,8 @@ class SatuanController extends Controller
             $satuan->latitude = $request->input('latitude');
             $satuan->longitude = $request->input('longitude');
             $satuan->status = $request->input('status');
-            $satuan->order_number = $request->input('order_number');
+            $satuan->order_number = $request->input('order_number') ?? Satuan::orderBy('order_number', 'desc')->first()->order_number + 1;
+            $satuan->visibility = $request->input('visibility');
 
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');
@@ -208,6 +214,7 @@ class SatuanController extends Controller
             $satuan->longitude = $request->input('longitude');
             $satuan->status = $request->input('status');
             $satuan->order_number = $request->input('order_number');
+            $satuan->visibility = $request->input('visibility');
 
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');

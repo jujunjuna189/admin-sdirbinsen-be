@@ -114,6 +114,16 @@ class MaterialController extends Controller
                 $material->file = Storage::disk('public')->url($path . '/' . $newFilename);
             }
 
+            if ($request->hasFile('document_file')) {
+                $file = $request->file('document_file');
+                $newFilename = "document_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                $path = 'satuan_material/document';
+                Storage::disk('public')->putFileAs($path, $file, $newFilename);
+                $material->document_file = Storage::disk('public')->url($path . '/' . $newFilename);
+            } else {
+                $material->document_file = $request->input('document_file');
+            }
+
             $material->save();
 
             $data = [
@@ -187,6 +197,16 @@ class MaterialController extends Controller
                 $path = 'satuan_material/gambar';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $material->file = Storage::disk('public')->url($path . '/' . $newFilename);
+            }
+
+            if ($request->hasFile('document_file')) {
+                $file = $request->file('document_file');
+                $newFilename = "document_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
+                $path = 'satuan_material/document';
+                Storage::disk('public')->putFileAs($path, $file, $newFilename);
+                $material->document_file = Storage::disk('public')->url($path . '/' . $newFilename);
+            } else {
+                $material->document_file = $request->input('document_file');
             }
 
             $material->save();

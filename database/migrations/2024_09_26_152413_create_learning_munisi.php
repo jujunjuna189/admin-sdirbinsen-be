@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('satuan_lain_lain', function (Blueprint $table) {
+        Schema::create('learning_munisi', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('satuan_id');
-            $table->string('gambar');
-            $table->string('nama');
-            $table->string('deskripsi');
+            $table->string('category');
+            $table->string('title');
+            $table->string('description')->nullable();
             $table->text('file');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('satuan_lain_lain');
+        Schema::dropIfExists('learning_munisi');
     }
 };

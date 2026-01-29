@@ -27,6 +27,11 @@ class PersonilSearcherController extends Controller
                 });
             }
 
+            $satuan_id = $request->input('satuan_id');
+            if (!empty($satuan_id)) {
+                $query->where('satuan_id', $satuan_id);
+            }
+
             // Apply filtering by tmt_1
             $tmt_1 = $request->input('tmt_1');
             if (!empty($tmt_1)) {

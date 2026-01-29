@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class PrestasiController extends Controller
 {
-    public function index(Request $request)
+    public function index($id_personil, Request $request)
     {
         try {
             // $query = prestasi::search($request->Input('search'));
-            $query = Prestasi::query();
+            $query = Prestasi::query()->where('personil_id', $id_personil);
             // Apply search
             $search = $request->input('search');
             if (!empty($search)) {

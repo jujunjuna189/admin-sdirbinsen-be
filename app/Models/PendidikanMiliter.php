@@ -14,7 +14,8 @@ class PendidikanMiliter extends Model
 
     protected $fillable = [
         'personil_id',
-        'dikma_diktuk_dibangun',
+        'type',
+        'title',
         'tahun',
         'prestasi',
     ];

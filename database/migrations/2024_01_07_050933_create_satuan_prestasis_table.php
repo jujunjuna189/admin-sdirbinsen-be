@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('gambar');
             $table->string('tahun')->nullable();
-            $table->string('deskripsi')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->string('nama')->nullable();
             $table->string('pangkat')->nullable();
             $table->string('bidang')->nullable();

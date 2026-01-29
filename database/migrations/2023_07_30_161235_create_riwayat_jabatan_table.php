@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('personil_id')->unsigned();
             $table->string('jabatan');
             $table->date('tmt');
+            $table->string('nomor_kep_skep')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

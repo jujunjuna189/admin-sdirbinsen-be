@@ -14,6 +14,7 @@ use App\Models\Korps;
 use App\Models\Pangkat;
 use App\Models\PendidikanUmum;
 use App\Models\Personil;
+use App\Models\PetaJabatan;
 use App\Models\RiwayatJabatan;
 use App\Models\Satuan;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -107,19 +109,18 @@ class PersonilController extends Controller
         }
     }
 
-
-
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try {
             $validator = Validator::make($request->all(), [
                 'satuan_id' => 'required',
                 'nrp' => 'required',
                 'nama' => 'required',
-                'tanggal_lahir' => 'nullable|date',
-                'tempat_lahir' => 'nullable',
-                'agama' => 'nullable',
-                'suku_bangsa' => 'nullable',
+                'tanggal_lahir' => 'required|date',
+                'tempat_lahir' => 'required',
+                'agama' => 'required',
+                'suku_bangsa' => 'required',
                 'golongan_darah' => 'nullable',
 
                 'gol_jabatan' => 'nullable',
@@ -213,13 +214,30 @@ class PersonilController extends Controller
 
             $personil->save();
 
+            // Update peta jabatan
+            $petajabatan = PetaJabatan::where('jabatan', $request->input('jabatan'))->first();
+            if($petajabatan){
+                // Old
+                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->first();
+                if($petajabatanOld){
+                    $petajabatanOld->personil_id = null;
+                    $petajabatanOld->tmt = null;
+                    $petajabatanOld->save();
+                }
+                // New
+                $petajabatan->personil_id = $personil->id;
+                $petajabatan->tmt = $request->input('tmt_jab');
+                $petajabatan->save();
+            }
 
             $data = [
                 'personil' => $personil
             ];
 
+            DB::commit();
             return responseJson('Add personil', 201, 'Success', $data);
         } catch (\Throwable $th) {
+            DB::rollBack();
             throw $th;
             // $errorMessage = $th->getMessage();
             // return responseJson($errorMessage, 500, 'Error');
@@ -269,6 +287,7 @@ class PersonilController extends Controller
 
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
         try {
             $personil = Personil::find($id);
             if (!$personil) {
@@ -370,15 +389,32 @@ class PersonilController extends Controller
                 // $personil->picture = 'uploads/' . $fileName;
             }
 
-
             $personil->save();
+
+            // Update peta jabatan
+            $petajabatan = PetaJabatan::where('jabatan', $request->input('jabatan'))->first();
+            if($petajabatan){
+                // Old
+                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->first();
+                if($petajabatanOld){
+                    $petajabatanOld->personil_id = null;
+                    $petajabatanOld->tmt = null;
+                    $petajabatanOld->save();
+                }
+                // New
+                $petajabatan->personil_id = $personil->id;
+                $petajabatan->tmt = $request->input('tmt_jab');
+                $petajabatan->save();
+            }
 
             $data = [
                 'personil' => $personil
             ];
 
+            DB::commit();
             return responseJson('Update personil', 200, 'Success', $data);
         } catch (\Throwable $th) {
+            DB::rollBack();
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
         }
@@ -540,7 +576,7 @@ class PersonilController extends Controller
 
     public function getSumberPA()
     {
-        $sumber_pa = ['Akmil', 'Sepa PK', 'Secapa', 'BA PK', 'BA Reg', 'TA PK'];
+        $sumber_pa = ['Akmil', 'Sepa PK', 'Secapa', 'BA PK', 'BA Reg', 'TA PK', 'PNS'];
 
         $data = [
             'sumber_pa' => $sumber_pa

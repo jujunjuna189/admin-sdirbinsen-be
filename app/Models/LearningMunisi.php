@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KompersSatjar extends Model
+class LearningMunisi extends Model
 {
     use HasFactory;
 
-    protected $table = 'kompers_satjar';
+    protected $table = 'learning_munisi';
     protected $guarded = ['id'];
 
     public function satuan()

@@ -27,6 +27,16 @@ class SatuanSearcherController extends Controller
                 $query->where('status', $status);
             }
 
+            $id = $request->input('id');
+            if (!empty($id)) {
+                $query->where('id', $id);
+            }
+
+            $visibility = $request->input('visibility');
+            if (!empty($visibility)) {
+                $query->where('visibility', $visibility);
+            }
+
             // Apply filtering by created_at
             $created_at = $request->input('created_at');
             if (!empty($created_at)) {
