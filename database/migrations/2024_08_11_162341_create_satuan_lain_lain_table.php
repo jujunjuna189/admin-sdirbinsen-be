@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('gambar');
             $table->string('nama');
             $table->string('deskripsi');
+            $table->text('file');
             $table->softDeletes();
             $table->timestamps();
         });

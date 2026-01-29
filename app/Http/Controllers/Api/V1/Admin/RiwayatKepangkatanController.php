@@ -69,7 +69,7 @@ class RiwayatKepangkatanController extends Controller
                 'personil_id' => 'required|numeric',
                 'pangkat' => 'required',
                 'tmt' => 'required:date',
-                'nomor_kep_skep' => 'required',
+                'nomor_kep_skep' => 'nullable',
             ],[
                 'personil_id.required'=>"Personil ID wajib diisi!",
                 'personil_id.numeric'=>"Format Personil ID salah!",
@@ -109,10 +109,10 @@ class RiwayatKepangkatanController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_personil, $id_pangkat)
     {
         try {
-            $pangkat = RiwayatKepangkatan::find($id);
+            $pangkat = RiwayatKepangkatan::find($id_pangkat);
             if (!$pangkat) {
                 return responseJson('Data not found', 404, 'Error');
             }
@@ -122,7 +122,7 @@ class RiwayatKepangkatanController extends Controller
                 'personil_id' => 'required|numeric',
                 'pangkat' => 'required',
                 'tmt' => 'required:date',
-                'nomor_kep_skep' => 'required',
+                'nomor_kep_skep' => 'nullable',
             ],[
                 'personil_id.required'=>"Personil ID wajib diisi!",
                 'personil_id.numeric'=>"Format Personil ID salah!",

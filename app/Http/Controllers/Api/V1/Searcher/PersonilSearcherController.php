@@ -27,6 +27,11 @@ class PersonilSearcherController extends Controller
                 });
             }
 
+            $satuan_id = $request->input('satuan_id');
+            if (!empty($satuan_id)) {
+                $query->where('satuan_id', $satuan_id);
+            }
+
             // Apply filtering by tmt_1
             $tmt_1 = $request->input('tmt_1');
             if (!empty($tmt_1)) {
@@ -36,7 +41,7 @@ class PersonilSearcherController extends Controller
             // Apply filtering by tmt_tni
             $tmt_tni = $request->input('tmt_tni');
             if (!empty($tmt_tni)) {
-                $query->whereDate('tmt_tni', $tmt_tni);
+                $query->whereYear('tmt_tni', $tmt_tni);
             }
 
             // Apply filtering by agama
@@ -141,7 +146,7 @@ class PersonilSearcherController extends Controller
     public function getSatuan()
     {
         // Mengambil daftar dari data personil
-        $satuan = Satuan::select('id', 'nama')->get();
+        $satuan = Satuan::select('id', 'nama')->orderBy("order_number", 'asc')->get();
 
         $data = [
             'satuan' => $satuan

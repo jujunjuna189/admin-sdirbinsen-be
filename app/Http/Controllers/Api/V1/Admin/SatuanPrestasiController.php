@@ -29,6 +29,18 @@ class SatuanPrestasiController extends Controller
                 $query->where('satuan_id', $satuan_id);
             }
 
+            // Apply filtering by satuan_id
+            $bidang = $request->input('bidang');
+            if (!empty($bidang)) {
+                $query->where('bidang', $bidang);
+            }
+
+            // Apply filtering by satuan_id
+            $kategori = $request->input('kategori');
+            if (!empty($kategori)) {
+                $query->where('kategori', $kategori);
+            }
+
             // Apply filtering by created_at
             $created_at = $request->input('created_at');
             if (!empty($created_at)) {
@@ -53,14 +65,14 @@ class SatuanPrestasiController extends Controller
     public function show($id)
     {
         try {
-            $satuan = SatuanPrestasi::where('id',$id)->first();
+            $satuan = SatuanPrestasi::where('id', $id)->first();
             if (!$satuan) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'satuan' => $satuan
             ];
-            return responseJson('Show Satuan prestasi', 200, 'Success',$data);
+            return responseJson('Show Satuan prestasi', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');
@@ -74,10 +86,12 @@ class SatuanPrestasiController extends Controller
                 'satuan_id' => 'required|exists:satuan,id',
                 'title' => 'required',
                 'gambar' => 'required|file:max:5120',
+                'bidang' => 'required',
                 'deskripsi' => 'nullable'
             ], [
                 'satuan_id.required' => "Satuan id harus diisi",
                 'title.required' => "title wajib diisi!",
+                'bidang.required' => "Bidang prestasi wajib diisi!",
                 'gambar.required' => "Gambar wajib diupload!",
             ]);
             if ($validator->fails()) {
@@ -87,11 +101,16 @@ class SatuanPrestasiController extends Controller
             $satuan = new SatuanPrestasi();
             $satuan->satuan_id = $request->input('satuan_id');
             $satuan->title = $request->input('title');
+            $satuan->tahun = $request->input('tahun');
             $satuan->deskripsi = $request->input('deskripsi');
+            $satuan->nama = $request->input('nama');
+            $satuan->pangkat = $request->input('pangkat');
+            $satuan->bidang = $request->input('bidang');
+            $satuan->kategori = $request->input('kategori');
 
             if ($request->hasFile('gambar')) {
                 $file = $request->file('gambar');
-                $newFilename = "gambar_" . date('Ymdhis') . rand(10000000, 99999999) ."." . $file->getClientOriginalExtension();
+                $newFilename = "gambar_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'satuan_prestasi/gambar';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $satuan->gambar = Storage::disk('public')->url($path . '/' . $newFilename);;
@@ -122,10 +141,12 @@ class SatuanPrestasiController extends Controller
                 'satuan_id' => 'required|exists:satuan,id',
                 'title' => 'required',
                 'gambar' => 'nullable|file:max:5120',
+                'bidang' => 'required',
                 'deskripsi' => 'nullable'
             ], [
                 'satuan_id.required' => "Satuan id harus diisi",
                 'title.required' => "title wajib diisi!",
+                'bidang.required' => "Bidang prestasi wajib diisi!",
             ]);
             if ($validator->fails()) {
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
@@ -133,11 +154,16 @@ class SatuanPrestasiController extends Controller
 
             $satuan->satuan_id = $request->input('satuan_id');
             $satuan->title = $request->input('title');
+            $satuan->tahun = $request->input('tahun');
             $satuan->deskripsi = $request->input('deskripsi');
+            $satuan->nama = $request->input('nama');
+            $satuan->pangkat = $request->input('pangkat');
+            $satuan->bidang = $request->input('bidang');
+            $satuan->kategori = $request->input('kategori');
 
             if ($request->hasFile('gambar')) {
                 $file = $request->file('gambar');
-                $newFilename = "gambar_" . date('Ymdhis') . rand(10000000, 99999999) ."." . $file->getClientOriginalExtension();
+                $newFilename = "gambar_" . date('Ymdhis') . rand(10000000, 99999999) . "." . $file->getClientOriginalExtension();
                 $path = 'satuan_jabatan_dansat/gambar';
                 Storage::disk('public')->putFileAs($path, $file, $newFilename);
                 $satuan->gambar = Storage::disk('public')->url($path . '/' . $newFilename);;
@@ -164,7 +190,7 @@ class SatuanPrestasiController extends Controller
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
-                'satuan'=>$satuan
+                'satuan' => $satuan
             ];
             $satuan->delete();
             return responseJson('Delete satuan prestasi', 200, 'Success', $data);

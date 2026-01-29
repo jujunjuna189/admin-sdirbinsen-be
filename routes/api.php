@@ -1,6 +1,7 @@
     <?php
 
     use App\Http\Controllers\Api\V1\Admin\AgamaAdminController;
+    use App\Http\Controllers\Api\V1\Admin\AnnouncementController;
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatBinsatLaplakgiatController;
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatBinsatRenlakgiatController;
     use App\Http\Controllers\Api\V1\Admin\BinsiapsatController;
@@ -15,11 +16,7 @@
     use App\Http\Controllers\Api\V1\Admin\KompersSatjarCategorysController;
     use App\Http\Controllers\Api\V1\Admin\KompersSatjarController;
     use App\Http\Controllers\Api\V1\Admin\KorpsController;
-    use App\Http\Controllers\Api\V1\Admin\LearningAlutsistaController;
-    use App\Http\Controllers\Api\V1\Admin\LearningMunisiController;
-    use App\Http\Controllers\Api\V1\Admin\LearningPejabatSatuanController;
-    use App\Http\Controllers\Api\V1\Admin\LearningResponsibilityController;
-    use App\Http\Controllers\Api\V1\Admin\LearningSatuanController;
+    use App\Http\Controllers\Api\V1\Admin\LearningController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterBinsiapsatCategoryController;
     use App\Http\Controllers\Api\V1\Admin\Master\MasterMaterialCategoryController;
     use App\Http\Controllers\Api\V1\Admin\MaterialController;
@@ -28,6 +25,7 @@
     use App\Http\Controllers\Api\V1\Admin\PersonilController;
     use App\Http\Controllers\Api\V1\Admin\PetaJabatanController;
     use App\Http\Controllers\Api\V1\Admin\PrestasiController;
+    use App\Http\Controllers\Api\V1\Admin\ReferensiController;
     use App\Http\Controllers\Api\V1\Admin\RiwayatJabatanController;
     use App\Http\Controllers\Api\V1\Admin\RiwayatKeluargaAnakController;
     use App\Http\Controllers\Api\V1\Admin\RiwayatKeluargaController;
@@ -47,6 +45,7 @@
     use App\Http\Controllers\Api\V1\Admin\SatuanPrestasiController;
     use App\Http\Controllers\Api\V1\Admin\SatuanPurnawirawanController;
     use App\Http\Controllers\Api\V1\Admin\SatuanTradisiController;
+    use App\Http\Controllers\Api\V1\Admin\SiapsatController;
     use App\Http\Controllers\Api\V1\Admin\UserController;
     use App\Http\Controllers\Api\V1\Admin\UserPermissionAdminController;
     use App\Http\Controllers\Api\V1\Admin\UserPersonilAdminController;
@@ -93,6 +92,13 @@
             'prefix' => 'admin',
             // 'middleware' => ['jwt.role:1']
         ], function () {
+
+            // Announcement
+            Route::get('pengumuman', [AnnouncementController::class, 'index']);
+            Route::get('pengumuman/{id}', [AnnouncementController::class, 'show']);
+            Route::post('pengumuman/{id}', [AnnouncementController::class, 'update']);
+            Route::post('pengumuman', [AnnouncementController::class, 'store']);
+            Route::delete('pengumuman/{id}', [AnnouncementController::class, 'destroy']);
 
             // PERSONIL
             Route::get('personil', [PersonilController::class, 'index']);
@@ -196,6 +202,7 @@
             Route::get('kompers-satjar', [KompersSatjarController::class, 'index']);
             Route::post('kompers-satjar', [KompersSatjarController::class, 'store']);
             Route::post('kompers-satjar/{id}', [KompersSatjarController::class, 'update']);
+            Route::delete('kompers-satjar/{id}', [KompersSatjarController::class, 'destroy']);
 
             // Peta Jabatan
             Route::get('peta-jabatan', [PetaJabatanController::class, 'index']);
@@ -345,31 +352,24 @@
             Route::post('binsiapsat', [BinsiapsatController::class, 'store']);
             Route::delete('binsiapsat/{id}', [BinsiapsatController::class, 'destroy']);
 
-            // Leaning
-            Route::get('learning/alutsista', [LearningAlutsistaController::class, 'index']);
-            Route::post('learning/alutsista', [LearningAlutsistaController::class, 'store']);
-            Route::post('learning/alutsista/{id}', [LearningAlutsistaController::class, 'update']);
-            Route::delete('learning/alutsista/{id}', [LearningAlutsistaController::class, 'destroy']);
+            // Siapsat
+            Route::get('siapsat', [SiapsatController::class, 'index']);
+            Route::get('siapsat/{id}', [SiapsatController::class, 'show']);
+            Route::post('siapsat/{id}', [SiapsatController::class, 'update']);
+            Route::post('siapsat', [SiapsatController::class, 'store']);
+            Route::delete('siapsat/{id}', [SiapsatController::class, 'destroy']);
 
-            Route::get('learning/munisi', [LearningMunisiController::class, 'index']);
-            Route::post('learning/munisi', [LearningMunisiController::class, 'store']);
-            Route::post('learning/munisi/{id}', [LearningMunisiController::class, 'update']);
-            Route::delete('learning/munisi/{id}', [LearningMunisiController::class, 'destroy']);
+            // // Leaning
+            Route::get('learning', [LearningController::class, 'index']);
+            Route::post('learning', [LearningController::class, 'store']);
+            Route::post('learning/{id}', [LearningController::class, 'update']);
+            Route::delete('learning/{id}', [LearningController::class, 'destroy']);
 
-            Route::get('learning/responsibility', [LearningResponsibilityController::class, 'index']);
-            Route::post('learning/responsibility', [LearningResponsibilityController::class, 'store']);
-            Route::post('learning/responsibility/{id}', [LearningResponsibilityController::class, 'update']);
-            Route::delete('learning/responsibility/{id}', [LearningResponsibilityController::class, 'destroy']);
-
-            Route::get('learning/satuan', [LearningSatuanController::class, 'index']);
-            Route::post('learning/satuan', [LearningSatuanController::class, 'store']);
-            Route::post('learning/satuan/{id}', [LearningSatuanController::class, 'update']);
-            Route::delete('learning/satuan/{id}', [LearningSatuanController::class, 'destroy']);
-
-            Route::get('learning/pejabat-satuan', [LearningPejabatSatuanController::class, 'index']);
-            Route::post('learning/pejabat-satuan', [LearningPejabatSatuanController::class, 'store']);
-            Route::post('learning/pejabat-satuan/{id}', [LearningPejabatSatuanController::class, 'update']);
-            Route::delete('learning/pejabat-satuan/{id}', [LearningPejabatSatuanController::class, 'destroy']);
+            // referensi
+            Route::get('referensi', [ReferensiController::class, 'index']);
+            Route::post('referensi', [ReferensiController::class, 'store']);
+            Route::post('referensi/{id}', [ReferensiController::class, 'update']);
+            Route::delete('referensi/{id}', [ReferensiController::class, 'destroy']);
 
             Route::get('chat', [ChatController::class, 'index']);
             Route::post('chat', [ChatController::class, 'store']);

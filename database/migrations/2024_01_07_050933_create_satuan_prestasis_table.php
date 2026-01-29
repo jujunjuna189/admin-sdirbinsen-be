@@ -16,7 +16,12 @@ return new class extends Migration
             $table->bigInteger('satuan_id')->unsigned();
             $table->string('title');
             $table->string('gambar');
-            $table->string('deskripsi');
+            $table->string('tahun')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('pangkat')->nullable();
+            $table->string('bidang')->nullable();
+            $table->string('kategori')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

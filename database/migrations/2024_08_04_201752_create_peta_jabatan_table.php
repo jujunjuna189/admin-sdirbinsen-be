@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kategori')->nullable();
             $table->string('golongan')->nullable();
             $table->string('jabatan')->nullable();
+            $table->integer('order_number')->default(0);
             $table->date('tmt')->nullable();
             $table->softDeletes();
             $table->timestamps();

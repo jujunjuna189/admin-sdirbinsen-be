@@ -67,14 +67,10 @@ class RiwayatKeluargaController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|integer',
-                'alamat_tinggal' => 'required',
-                'nomor_hp' => 'required',
-                'nama_ayah' => 'required',
-                'nama_ibu' => 'required',
-                'alamat_orang_tua' => 'required',
-                'nama_istri_atau_suami' => 'required',
+                'nama_ayah' => 'nullable',
+                'nama_ibu' => 'nullable',
                 'jumlah_anak' => 'nullable',
-                'status' => 'required',
+                'status' => 'nullable',
             ], [
                 'personil_id.required' => "Personil ID wajib diisi!",
                 'personil_id.integer' => "Format Personil ID salah!",
@@ -83,7 +79,6 @@ class RiwayatKeluargaController extends Controller
                 'nama_ayah.required' => "Nama Ayah wajib diisi!",
                 'nama_ibu.required' => "Nama Ibu wajib diisi!",
                 'alamat_orang_tua.required' => "Alamat Orang tua wajib diisi!",
-                'nama_istri_atau_suami.required' => "Nama Istri atau Suami wajib diisi!",
                 'status.required' => "Status wajib diisi!"
             ]);
 
@@ -132,14 +127,14 @@ class RiwayatKeluargaController extends Controller
             // Validate the updated data
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|integer',
-                'alamat_tinggal' => 'required',
-                'nomor_hp' => 'required',
-                'nama_ayah' => 'required',
-                'nama_ibu' => 'required',
-                'alamat_orang_tua' => 'required',
-                'nama_istri_atau_suami' => 'required',
+                'alamat_tinggal' => 'nullable',
+                'nomor_hp' => 'nullable',
+                'nama_ayah' => 'nullable',
+                'nama_ibu' => 'nullable',
+                'alamat_orang_tua' => 'nullable',
+                'nama_istri_atau_suami' => 'nullable',
                 'jumlah_anak' => 'nullable',
-                'status' => 'required',
+                'status' => 'nullable',
             ], [
                 'personil_id.required' => "Personil ID wajib diisi!",
                 'personil_id.integer' => "Format Personil ID salah!",

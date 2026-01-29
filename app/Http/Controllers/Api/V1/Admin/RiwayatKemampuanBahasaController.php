@@ -67,9 +67,9 @@ class RiwayatKemampuanBahasaController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|numeric',
-                'nama' => 'required',
-                'jenis_bahasa' => 'required',
-                'status' => 'required',
+                'nama' => 'nullable',
+                'jenis_bahasa' => 'nullable',
+                'status' => 'nullable',
             ],[
                 'personil_id.required'=>"Personil ID wajib diisi!",
                 'personil_id.numeric'=>"Format Personil ID salah!",
@@ -118,9 +118,9 @@ class RiwayatKemampuanBahasaController extends Controller
             // Validate the updated data
             $validator = Validator::make($request->all(), [
                 'personil_id' => 'required|numeric',
-                'nama' => 'required',
-                'jenis_bahasa' => 'required',
-                'status' => 'required',
+                'nama' => 'nullable',
+                'jenis_bahasa' => 'nullable',
+                'status' => 'nullable',
             ],[
                 'personil_id.required'=>"Personil ID wajib diisi!",
                 'personil_id.numeric'=>"Format Personil ID salah!",

@@ -120,6 +120,11 @@ class PermissionsSeeder extends Seeder
         ]);
 
         Permission::create([
+            'display' => 'Menu Buku Pintar',
+            'key' => 'learning.menu'
+        ]);
+
+        Permission::create([
             'display' => 'Lihat Searcher Data',
             'key' => 'view.searcher'
         ]);

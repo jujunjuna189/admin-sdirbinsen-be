@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('satuan_tradisi', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('satuan_id');
-            $table->text('video');
+            $table->text('video')->nullable();
+            $table->text('file')->nullable();
             $table->text('deskripsi')->nullable();
             $table->softDeletes();
             $table->timestamps();

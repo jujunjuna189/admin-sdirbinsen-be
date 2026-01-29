@@ -11,4 +11,9 @@ class KompersSatjar extends Model
 
     protected $table = 'kompers_satjar';
     protected $guarded = ['id'];
+
+    public function satuan()
+    {
+        return $this->belongsTo(Satuan::class, 'satuan_id');
+    }
 }

@@ -19,7 +19,7 @@ class AgamaSeeder extends Seeder
         ]);
 
         Agama::create([
-            'nama' => 'Protestan',
+            'nama' => 'Kristen',
         ]);
 
         Agama::create([

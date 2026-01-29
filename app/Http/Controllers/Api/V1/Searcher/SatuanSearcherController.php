@@ -27,11 +27,23 @@ class SatuanSearcherController extends Controller
                 $query->where('status', $status);
             }
 
+            $id = $request->input('id');
+            if (!empty($id)) {
+                $query->where('id', $id);
+            }
+
+            $visibility = $request->input('visibility');
+            if (!empty($visibility)) {
+                $query->where('visibility', $visibility);
+            }
+
             // Apply filtering by created_at
             $created_at = $request->input('created_at');
             if (!empty($created_at)) {
                 $query->whereDate('created_at', $created_at);
             }
+
+            $query->orderBy("order_number", "asc");
 
             // Paginate the results
             $perPage = $request->input('per_page', 100);
@@ -51,14 +63,14 @@ class SatuanSearcherController extends Controller
     public function show($id)
     {
         try {
-            $satuan = Satuan::where('id',$id)->first();
+            $satuan = Satuan::where('id', $id)->first();
             if (!$satuan) {
                 return responseJson('Data not found', 404, 'Error');
             }
             $data = [
                 'satuan' => $satuan
             ];
-            return responseJson('Show Satuan', 200, 'Success',$data);
+            return responseJson('Show Satuan', 200, 'Success', $data);
         } catch (\Throwable $th) {
             $errorMessage = $th->getMessage();
             return responseJson($errorMessage, 500, 'Error');

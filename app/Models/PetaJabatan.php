@@ -26,6 +26,6 @@ class PetaJabatan extends Model
 
     public function personil()
     {
-        return $this->hasOne(Personil::class, 'id', 'personil_id');
+        return $this->hasOne(Personil::class, 'id', 'personil_id')->with('satuan');
     }
 }
