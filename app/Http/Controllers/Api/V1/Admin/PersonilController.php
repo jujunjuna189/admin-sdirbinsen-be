@@ -16,6 +16,7 @@ use App\Models\PendidikanUmum;
 use App\Models\Personil;
 use App\Models\PetaJabatan;
 use App\Models\RiwayatJabatan;
+use App\Models\RiwayatKepangkatan;
 use App\Models\Satuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -342,6 +343,10 @@ class PersonilController extends Controller
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
             }
 
+            // Store original values to detect changes
+            $oldJabatan = $personil->jabatan;
+            $oldPangkat = $personil->pangkat;
+
             // Update the personil data
 
             $personil->satuan_id = $request->input('satuan_id');
@@ -390,6 +395,27 @@ class PersonilController extends Controller
             }
 
             $personil->save();
+
+            // Auto-create history records for changed fields
+            $newJabatan = $request->input('jabatan');
+            $newPangkat = $request->input('pangkat');
+
+            if ($oldJabatan !== $newJabatan && !empty($newJabatan)) {
+                RiwayatJabatan::create([
+                    'personil_id' => $personil->id,
+                    'jabatan' => $newJabatan,
+                    'tmt' => $request->input('tmt_jab') ?? now(),
+                ]);
+            }
+
+            if ($oldPangkat !== $newPangkat && !empty($newPangkat)) {
+                RiwayatKepangkatan::create([
+                    'personil_id' => $personil->id,
+                    'pangkat' => $newPangkat,
+                    'tmt' => $request->input('tmt_jab') ?? now(),
+                    'nomor_kep_skep' => null,
+                ]);
+            }
 
             // Update peta jabatan
             $petajabatan = PetaJabatan::where('jabatan', $request->input('jabatan'))->first();
