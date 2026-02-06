@@ -219,7 +219,7 @@ class PersonilController extends Controller
             $petajabatan = PetaJabatan::where('jabatan', $request->input('jabatan'))->first();
             if($petajabatan){
                 // Old
-                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->first();
+                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->where('id', '!=', $petajabatan->id)->first();
                 if($petajabatanOld){
                     $petajabatanOld->personil_id = null;
                     $petajabatanOld->tmt = null;
@@ -421,7 +421,7 @@ class PersonilController extends Controller
             $petajabatan = PetaJabatan::where('jabatan', $request->input('jabatan'))->first();
             if($petajabatan){
                 // Old
-                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->first();
+                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->where('id', '!=', $petajabatan->id)->first();
                 if($petajabatanOld){
                     $petajabatanOld->personil_id = null;
                     $petajabatanOld->tmt = null;
