@@ -26,6 +26,7 @@ class Personil extends Model
 
         'jabatan',
         'pangkat',
+        'nomor_kep_skep',
         'korps',
         'sumber_pa',
         'psi',

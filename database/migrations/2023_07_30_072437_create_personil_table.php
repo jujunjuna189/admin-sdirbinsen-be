@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('gol_jabatan', 255)->nullable();
             $table->string('jabatan', 255)->nullable();
             $table->string('pangkat', 255)->nullable();
+            $table->string('nomor_kep_skep')->nullable();
             $table->string('korps', 255)->nullable();
             $table->string('sumber_pa')->nullable();
             $table->string('psi')->nullable();
