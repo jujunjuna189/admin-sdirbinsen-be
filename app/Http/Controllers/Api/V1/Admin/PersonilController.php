@@ -16,6 +16,7 @@ use App\Models\PendidikanUmum;
 use App\Models\Personil;
 use App\Models\PetaJabatan;
 use App\Models\RiwayatJabatan;
+use App\Models\RiwayatKepangkatan;
 use App\Models\Satuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -126,6 +127,7 @@ class PersonilController extends Controller
                 'gol_jabatan' => 'nullable',
                 'jabatan' => 'nullable',
                 'pangkat' => 'nullable',
+                'nomor_kep_skep' => 'nullable',
                 'korps' => 'nullable',
                 'sumber_pa' => 'required',
                 'psi' => 'nullable',
@@ -182,6 +184,7 @@ class PersonilController extends Controller
             $personil->gol_jabatan = $request->input('gol_jabatan');
             $personil->jabatan = $request->input('jabatan');
             $personil->pangkat = $request->input('pangkat');
+            $personil->nomor_kep_skep = $request->input('nomor_kep_skep');
             $personil->korps = $request->input('korps');
             $personil->sumber_pa = $request->input('sumber_pa');
             $personil->psi = $request->input('psi');
@@ -214,12 +217,33 @@ class PersonilController extends Controller
 
             $personil->save();
 
+            // Auto-create history records for changed fields
+            $newJabatan = $request->input('jabatan');
+            $newPangkat = $request->input('pangkat');
+
+            if (!empty($newJabatan)) {
+                RiwayatJabatan::create([
+                    'personil_id' => $personil->id,
+                    'jabatan' => $newJabatan,
+                    'tmt' => $request->input('tmt_jab') ?? now(),
+                ]);
+            }
+
+            if (!empty($newPangkat)) {
+                RiwayatKepangkatan::create([
+                    'personil_id' => $personil->id,
+                    'pangkat' => $newPangkat,
+                    'tmt' => $request->input('tmt_2') ?? now(),
+                    'nomor_kep_skep' => $request->input('nomor_kep_skep'),
+                ]);
+            }
+
             // Update peta jabatan
             $petajabatan = PetaJabatan::where('jabatan', $request->input('jabatan'))->first();
-            if($petajabatan){
+            if ($petajabatan) {
                 // Old
-                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->first();
-                if($petajabatanOld){
+                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->where('id', '!=', $petajabatan->id)->first();
+                if ($petajabatanOld) {
                     $petajabatanOld->personil_id = null;
                     $petajabatanOld->tmt = null;
                     $petajabatanOld->save();
@@ -307,6 +331,7 @@ class PersonilController extends Controller
                 'gol_jabatan' => 'nullable',
                 'jabatan' => 'nullable',
                 'pangkat' => 'nullable',
+                'nomor_kep_skep' => 'nullable',
                 'korps' => 'nullable',
                 'sumber_pa' => 'required',
                 'psi' => 'nullable',
@@ -342,6 +367,10 @@ class PersonilController extends Controller
                 return responseJson('Validation error', 400, 'Error', ['errors' => $validator->errors()]);
             }
 
+            // Store original values to detect changes
+            $oldJabatan = $personil->jabatan;
+            $oldPangkat = $personil->pangkat;
+
             // Update the personil data
 
             $personil->satuan_id = $request->input('satuan_id');
@@ -356,6 +385,7 @@ class PersonilController extends Controller
             $personil->gol_jabatan = $request->input('gol_jabatan');
             $personil->jabatan = $request->input('jabatan');
             $personil->pangkat = $request->input('pangkat');
+            $personil->nomor_kep_skep = $request->input('nomor_kep_skep');
             $personil->korps = $request->input('korps');
             $personil->sumber_pa = $request->input('sumber_pa');
             $personil->psi = $request->input('psi');
@@ -391,12 +421,59 @@ class PersonilController extends Controller
 
             $personil->save();
 
+            $newJabatan = $request->input('jabatan');
+            $newTmtJab = $request->input('tmt_jab') ?? now();
+
+            if (!empty($newJabatan)) {
+                if ($oldJabatan !== $newJabatan) {
+                    // Kalau jabatan berubah → buat riwayat baru
+                    RiwayatJabatan::create([
+                        'personil_id' => $personil->id,
+                        'jabatan' => $newJabatan,
+                        'tmt' => $newTmtJab,
+                    ]);
+                } else {
+                    // Kalau jabatan sama → update record terakhir saja
+                    $lastRiwayat = RiwayatJabatan::where('personil_id', $personil->id)->where('jabatan', $newJabatan)->first();
+                    if ($lastRiwayat) {
+                        $lastRiwayat->update([
+                            'tmt' => $newTmtJab,
+                        ]);
+                    }
+                }
+            }
+
+            $newPangkat = $request->input('pangkat');
+            $newNomorSkep = $request->input('nomor_kep_skep');
+            $newTmtJab = $request->input('tmt_2') ?? now();
+
+            if (!empty($newPangkat)) {
+                if ($oldPangkat !== $newPangkat) {
+                    // Pangkat berubah → buat baru
+                    RiwayatKepangkatan::create([
+                        'personil_id' => $personil->id,
+                        'pangkat' => $newPangkat,
+                        'tmt' => $newTmtJab,
+                        'nomor_kep_skep' => $newNomorSkep,
+                    ]);
+                } else {
+                    // Pangkat sama → update terakhir
+                    $lastRiwayat = RiwayatKepangkatan::where('personil_id', $personil->id)->where('pangkat', $newPangkat)->first();
+                    if ($lastRiwayat) {
+                        $lastRiwayat->update([
+                            'tmt' => $newTmtJab,
+                            'nomor_kep_skep' => $newNomorSkep,
+                        ]);
+                    }
+                }
+            }
+
             // Update peta jabatan
             $petajabatan = PetaJabatan::where('jabatan', $request->input('jabatan'))->first();
-            if($petajabatan){
+            if ($petajabatan) {
                 // Old
-                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->first();
-                if($petajabatanOld){
+                $petajabatanOld = PetaJabatan::where('personil_id', $personil->id)->whereNotNull('personil_id')->where('id', '!=', $petajabatan->id)->first();
+                if ($petajabatanOld) {
                     $petajabatanOld->personil_id = null;
                     $petajabatanOld->tmt = null;
                     $petajabatanOld->save();
